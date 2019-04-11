@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html>
 	<header>
-		<title>Ben</title>
+		<title>Tasty Bois</title>
+		<style>
+			body { background-image:url('img/grizzley-bear.png') }
+		</style>
+		<meta http-equiv="refresh" content="3">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</header>
-	<body style="background-image:url('img/grizzley-bear.png')">
+	<body>
 		<h1>Home Page</h1>
 
 <!--		<a href="./Pillars/">Pillars of My Beliefs</a><br> -->
 		<a href="./Goals/">Goals</a><br>
-		<button>You know what it is</button><br>
-<!--		<img src="https://defenders.org/sites/default/files/styles/homepage-feature-2015/public/grizzley-bear_jim-chagares.png?itok=apGsiqAn" alt="big ol bear"> -->
+		<p>
+			<button onclick="OhGeez()">You know what it is</button><br>
+			<button onclick="OhBaby()">No you don't</button>
+		</p>
+
+		<p id="javaText">Get ready</p>
+
+		<script>
+			function OhBaby() {
+				document.getElementById("javaText").innerHTML = "Oh baby";
+				document.getElementById("javaText").style.fontSize = "25px";
+				document.getElementById("javaText").style.color	= "tomato";
+				document.getElementById("javaText").style.fontWeight = ""
+			}
+			function OhGeez() {
+				document.getElementById("javaText").innerHTML = "Oh geez";
+				document.getElementById("javaText").style.fontSize = "";
+				document.getElementById("javaText").style.color	= "dodgerblue";
+				document.getElementById("javaText").style.fontWeight = "bold"
+			}
+		</script>
 	</body>
 </html>
