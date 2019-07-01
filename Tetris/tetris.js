@@ -2,6 +2,8 @@ const cvs = document.getElementById("tetris");
 const ctx = cvs.getContext("2d");
 const scoreElement = document.getElementById("score");
 const levelElement = document.getElementById("level");
+const progressToNextLevelElement = document.getElementById("progressTowardsNextLevel");
+const rowsClearedElement = document.getElementById("rowsCleared");
 
 const ROW = 20;
 const COL = COLUMN = 10;
@@ -183,7 +185,8 @@ Piece.prototype.rotate = function()
 
 let score = 0;
 let rowsCleared=0;
-let level = 0;
+let progressToNextLevel = 0
+let level = 1;
 
 //lock piece
 Piece.prototype.lock = function()
@@ -232,18 +235,54 @@ Piece.prototype.lock = function()
 			{
 				board[0][c] = VACANT;
 			}
+			
+			
+			
 			//increment the score
 			score += 10;
 			
 			//increment the number of rows completed
 			rowsCleared++;
-			if(rowsCleared == 2)
-			{
-				rowsCleared = 0;
-				level++;
-			}
+			//if(progressToNextLevel == 2)
+			//{
+			//	progressToNextLevel = 0;
+			//	level++;
+			//}
 		}
 	}
+	
+	//Update Level
+	if(rowsCleared == 1)
+	{
+		progressToNextLevel += 1;
+	}
+	else if(rowsCleared == 2)
+	{
+		progressToNextLevel += 3;
+	}
+	else if(rowsCleared == 3)
+	{
+		progressToNextLevel += 6;
+	}
+	else if(rowsCleared == 4)
+	{
+		progressToNextLevel += 10;
+	}
+	
+	//FOR TESTING
+	rowsClearedElement.innerHTML = rowsCleared;
+	//
+	
+	rowsCleared = 0;
+	
+	if(progressToNextLevel > 15)
+	{
+		level++;
+		progressToNextLevel = progressToNextLevel%15;
+	}
+	
+	
+	
 	//update the board
 	drawBoard();	
 
@@ -252,6 +291,10 @@ Piece.prototype.lock = function()
 	
 	//update the level
 	levelElement.innerHTML = level;
+	
+	//FOR TESTING
+	progressToNextLevelElement.innerHTML = progressToNextLevel;
+	//
 }
 
 //collision function
