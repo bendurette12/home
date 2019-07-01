@@ -7,6 +7,16 @@ const COL = COLUMN = 10;
 const SQ = squareSize = 20;
 const VACANT = "WHITE"; //color of empty square
 
+const QueueROW = 10;
+const QueueCOL = 6;
+const QueueXOffset = 12;
+const QueueYOffset = 0;
+
+const HoldROW = 6;
+const HoldCOL = 6;
+const HoldXOffset = 12;
+const HoldYOffset = 14;
+
 //draw a square
 function drawSquare(x,y,color)
 {
@@ -44,6 +54,58 @@ function drawBoard()
 }
 
 drawBoard();
+
+
+//create Queue
+let queue = [];
+for(r = 0; r < QueueROW; r++)
+{
+	queue[r] = [];
+	for(c = 0; c < QueueCOL; c++)
+	{
+		queue[r][c] = VACANT;
+	}
+}
+
+//draw Queue
+function drawQueue()
+{
+	for(r = 0; r < QueueROW; r++)
+	{
+		for(c=0; c < QueueCOL; c++)
+		{
+			drawSquare(c+QueueXOffset,r+QueueYOffset,queue[r][c])
+		}
+	}
+}
+
+drawQueue();
+
+
+//create Hold box
+let hold = [];
+for(r = 0; r < HoldROW; r++)
+{
+	hold[r] = [];
+	for(c = 0; c < HoldCOL; c++)
+	{
+		hold[r][c] = VACANT;
+	}
+}
+
+//draw Queue
+function drawHold()
+{
+	for(r = 0; r < HoldROW; r++)
+	{
+		for(c=0; c < HoldCOL; c++)
+		{
+			drawSquare(c+HoldXOffset,r+HoldYOffset,hold[r][c])
+		}
+	}
+}
+
+drawHold();
 
 
 //the pieces and their colors
