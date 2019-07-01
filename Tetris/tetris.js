@@ -1,6 +1,7 @@
 const cvs = document.getElementById("tetris");
 const ctx = cvs.getContext("2d");
 const scoreElement = document.getElementById("score");
+const levelElement = document.getElementById("level");
 
 const ROW = 20;
 const COL = COLUMN = 10;
@@ -181,6 +182,8 @@ Piece.prototype.rotate = function()
 }
 
 let score = 0;
+let rowsCleared=0;
+let level = 0;
 
 //lock piece
 Piece.prototype.lock = function()
@@ -231,6 +234,14 @@ Piece.prototype.lock = function()
 			}
 			//increment the score
 			score += 10;
+			
+			//increment the number of rows completed
+			rowsCleared++;
+			if(rowsCleared == 2)
+			{
+				rowsCleared = 0;
+				level++;
+			}
 		}
 	}
 	//update the board
@@ -238,6 +249,9 @@ Piece.prototype.lock = function()
 
 	//update the score
 	scoreElement.innerHTML = score;
+	
+	//update the level
+	levelElement.innerHTML = level;
 }
 
 //collision function
