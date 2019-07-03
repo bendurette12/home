@@ -306,6 +306,7 @@ Piece.prototype.hold = function()
 
 		HoldUsed = 1;
 	}
+}
 
 //Drop piece
 Piece.prototype.hardDrop = function()
@@ -319,7 +320,7 @@ Piece.prototype.hardDrop = function()
 	
 	//lock the piece and create a new one
 	this.lock();
-	p = randomPiece();
+	nextPiece();
 }
 
 let score = 0;
@@ -509,6 +510,7 @@ function CONTROL(event)
 	else if(event.keyCode == 67)
 	{
 		p.hold();
+	}
 	else if(event.keyCode == 32)
 	{
 		p.hardDrop();
