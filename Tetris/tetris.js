@@ -22,6 +22,9 @@ const HoldROW = 6;
 const HoldCOL = 6;
 const HoldXOffset = 12;
 const HoldYOffset = 14;
+const HoldPieceX = 1;
+const HoldPieceY = 1;
+let HoldUsed = 0;
 
 //draw a square
 function drawSquare(x,y,color)
@@ -153,7 +156,7 @@ q3.x = QueueXOffset + Queue3X;
 q3.y = QueueYOffset + Queue3Y;
 if(q3.tetromino == O) {q3.y = q3.y - 1;}
 
-
+let h = null;
 
 //The Object Piece
 function Piece(tetromino,color)
@@ -266,6 +269,42 @@ Piece.prototype.rotate = function()
 	}
 }
 
+//rotate piece
+Piece.prototype.hold = function() 
+{
+	if(!h)
+	{
+		h = p;
+		p.unDraw();
+		nextPiece();
+
+		h.x = HoldXOffset + HoldPieceX;
+		h.y = HoldYOffset + HoldPieceY;
+		h.draw();
+
+		HoldUsed = 1;
+	}
+	else if(HoldUsed == 0)
+	{
+		let temp = p;
+		h.unDraw();
+		p.unDraw();
+
+		p = h;
+		p.x = 3;
+		p.y = 0;
+
+		h = temp;
+		h.x = HoldXOffset + HoldPieceX;
+		h.y = HoldYOffset + HoldPieceY;
+
+		h.draw();
+		p.draw();
+
+		HoldUsed = 1;
+	}
+}
+
 let score = 0;
 
 //lock piece
@@ -324,6 +363,7 @@ Piece.prototype.lock = function()
 
 	//update the score
 	scoreElement.innerHTML = score;
+	HoldUsed = 0;
 }
 
 //collision function
@@ -380,10 +420,14 @@ function CONTROL(event)
 		p.moveRight();
 		//dropStart = Date.now();
 	}
-	else if(event.keyCode ==40)
+	else if(event.keyCode == 40)
 	{
 		p.moveDown();
 		dropStart = Date.now();
+	}
+	else if(event.keyCode == 67)
+	{
+		p.hold();
 	}
 }
 
