@@ -306,6 +306,20 @@ Piece.prototype.hold = function()
 
 		HoldUsed = 1;
 	}
+
+//Drop piece
+Piece.prototype.hardDrop = function()
+{
+	while(!this.collision(0,1,this.activeTetromino))
+	{
+		this.unDraw();
+		this.y++;
+		this.draw();
+	}
+	
+	//lock the piece and create a new one
+	this.lock();
+	p = randomPiece();
 }
 
 let score = 0;
@@ -337,6 +351,7 @@ Piece.prototype.lock = function()
 			board[this.y+r][this.x+c] = this.color;
 		}
 	}
+	
 	//remove full rows
 	for(r = 0; r < ROW; r++)
 	{
@@ -361,8 +376,6 @@ Piece.prototype.lock = function()
 				board[0][c] = VACANT;
 			}
 			
-			
-			
 			//increment the score
 			//score += 10;
 			//score now calculated 
@@ -377,11 +390,7 @@ Piece.prototype.lock = function()
 		}
 	}
 	
-	
 	updateScoreNLevel();
-	
-	
-	
 	
 	//update the board
 	drawBoard();	
@@ -399,11 +408,9 @@ Piece.prototype.lock = function()
 	HoldUsed = 0;
 }
 
+//Update Level and score
 function updateScoreNLevel()
 {
-	
-	
-//Update Level and score
 	if(rowsCleared == 1)
 	{
 		progressToNextLevel += 1;
@@ -502,6 +509,10 @@ function CONTROL(event)
 	else if(event.keyCode == 67)
 	{
 		p.hold();
+	else if(event.keyCode == 32)
+	{
+		p.hardDrop();
+		dropStart = Date.now();
 	}
 }
 
