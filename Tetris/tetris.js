@@ -11,6 +11,12 @@ const QueueROW = 10;
 const QueueCOL = 6;
 const QueueXOffset = 12;
 const QueueYOffset = 0;
+const Queue1X = 1;
+const Queue1Y = 1;
+const Queue2X = 1;
+const Queue2Y = 4;
+const Queue3X = 1;
+const Queue3Y = 7;
 
 const HoldROW = 6;
 const HoldCOL = 6;
@@ -128,7 +134,25 @@ function randomPiece()
 	return new Piece( PIECES[r][0],PIECES[r][1]);
 }
 
-let p = randomPiece();	 
+
+
+let p = randomPiece();
+
+let q1 = randomPiece();
+q1.x = QueueXOffset + Queue1X;
+q1.y = QueueYOffset + Queue1Y;
+if(q1.tetromino == O) {q1.y = q1.y - 1;}
+
+let q2 = randomPiece();
+q2.x = QueueXOffset + Queue2X;
+q2.y = QueueYOffset + Queue2Y;
+if(q2.tetromino == O) {q2.y = q2.y - 1;}
+
+let q3 = randomPiece();
+q3.x = QueueXOffset + Queue3X;
+q3.y = QueueYOffset + Queue3Y;
+if(q3.tetromino == O) {q3.y = q3.y - 1;}
+
 
 
 //The Object Piece
@@ -187,7 +211,7 @@ Piece.prototype.moveDown = function()
 	{
 		//lock the piece and create a new one
 		this.lock();
-		p = randomPiece();
+		nextPiece();
 	}
 }
 
@@ -382,18 +406,40 @@ function drop()
 drop();
 
 
+q1.draw();
+q2.draw();
+q3.draw();
 
 
+function nextPiece()
+{
+	//undraw them all
+	q1.unDraw();
+	q2.unDraw();
+	q3.unDraw();
+
+	//update p from next on queue
+	p = q1;
+	p.x = 3;
+	p.y = -2;
+
+	//update q1
+	q1 = q2;
+	q1.y = q1.y - 3;
+
+	//udpate q2
+	q2 = q3;
+	q2.y = q2.y - 3;
+
+	//create new q3 and move up one space if O because it is a 4x4 instead of 3x3
+	q3 = randomPiece();
+	q3.x = QueueXOffset + Queue3X;
+	q3.y = QueueYOffset + Queue3Y;
+	if(q3.tetromino == O) {q3.y = q3.y - 1;}
 
 
-
-
-
-
-
-
-
-
-
-
+	q1.draw();
+	q2.draw();
+	q3.draw();
+}
 
