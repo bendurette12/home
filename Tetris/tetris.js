@@ -239,7 +239,8 @@ Piece.prototype.lock = function()
 			
 			
 			//increment the score
-			score += 10;
+			//score += 10;
+			//score now calculated 
 			
 			//increment the number of rows completed
 			rowsCleared++;
@@ -251,35 +252,9 @@ Piece.prototype.lock = function()
 		}
 	}
 	
-	//Update Level
-	if(rowsCleared == 1)
-	{
-		progressToNextLevel += 1;
-	}
-	else if(rowsCleared == 2)
-	{
-		progressToNextLevel += 3;
-	}
-	else if(rowsCleared == 3)
-	{
-		progressToNextLevel += 6;
-	}
-	else if(rowsCleared == 4)
-	{
-		progressToNextLevel += 10;
-	}
 	
-	//FOR TESTING
-	rowsClearedElement.innerHTML = rowsCleared;
-	//
+	updateScoreNLevel();
 	
-	rowsCleared = 0;
-	
-	if(progressToNextLevel > 15)
-	{
-		level++;
-		progressToNextLevel = progressToNextLevel%15;
-	}
 	
 	
 	
@@ -296,6 +271,47 @@ Piece.prototype.lock = function()
 	progressToNextLevelElement.innerHTML = progressToNextLevel;
 	//
 }
+
+function updateScoreNLevel()
+{
+	
+	
+//Update Level and score
+	if(rowsCleared == 1)
+	{
+		progressToNextLevel += 1;
+		score = score + (10 * level);
+	}
+	else if(rowsCleared == 2)
+	{
+		progressToNextLevel += 3;
+		score = score + (30 * level);
+	}
+	else if(rowsCleared == 3)
+	{
+		progressToNextLevel += 6;
+		score = score + (60 * level);
+	}
+	else if(rowsCleared == 4)
+	{
+		progressToNextLevel += 10;
+		score = score + (100 * level);
+	}
+	
+	//FOR TESTING
+	rowsClearedElement.innerHTML = rowsCleared;
+	//
+	
+	rowsCleared = 0;
+	
+	if(progressToNextLevel > 15)
+	{
+		level++;
+		progressToNextLevel = progressToNextLevel%15;
+	}
+}
+
+
 
 //collision function
 Piece.prototype.collision = function(x,y,piece)
