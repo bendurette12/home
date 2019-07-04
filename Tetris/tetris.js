@@ -38,8 +38,6 @@ function drawSquare(x,y,color)
 	ctx.strokeStyle = "BLACK";
 	ctx.strokeRect(x*SQ,y*SQ,SQ,SQ);
 }
-//drawSquare(1,1,"GREEN");
-
 
 //create the board
 let board = [];
