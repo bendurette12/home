@@ -10,6 +10,25 @@ const COL = COLUMN = 10;
 const SQ = squareSize = 20;
 const VACANT = "WHITE"; //color of empty square
 
+const QueueROW = 10;
+const QueueCOL = 6;
+const QueueXOffset = 12;
+const QueueYOffset = 0;
+const Queue1X = 1;
+const Queue1Y = 1;
+const Queue2X = 1;
+const Queue2Y = 4;
+const Queue3X = 1;
+const Queue3Y = 7;
+
+const HoldROW = 6;
+const HoldCOL = 6;
+const HoldXOffset = 12;
+const HoldYOffset = 14;
+const HoldPieceX = 1;
+const HoldPieceY = 1;
+let HoldUsed = 0;
+
 //draw a square
 function drawSquare(x,y,color)
 {
@@ -49,6 +68,58 @@ function drawBoard()
 drawBoard();
 
 
+//create Queue
+let queue = [];
+for(r = 0; r < QueueROW; r++)
+{
+	queue[r] = [];
+	for(c = 0; c < QueueCOL; c++)
+	{
+		queue[r][c] = VACANT;
+	}
+}
+
+//draw Queue
+function drawQueue()
+{
+	for(r = 0; r < QueueROW; r++)
+	{
+		for(c=0; c < QueueCOL; c++)
+		{
+			drawSquare(c+QueueXOffset,r+QueueYOffset,queue[r][c])
+		}
+	}
+}
+
+drawQueue();
+
+
+//create Hold box
+let hold = [];
+for(r = 0; r < HoldROW; r++)
+{
+	hold[r] = [];
+	for(c = 0; c < HoldCOL; c++)
+	{
+		hold[r][c] = VACANT;
+	}
+}
+
+//draw Queue
+function drawHold()
+{
+	for(r = 0; r < HoldROW; r++)
+	{
+		for(c=0; c < HoldCOL; c++)
+		{
+			drawSquare(c+HoldXOffset,r+HoldYOffset,hold[r][c])
+		}
+	}
+}
+
+drawHold();
+
+
 //the pieces and their colors
 const PIECES = 
 [
@@ -69,8 +140,26 @@ function randomPiece()
 	return new Piece( PIECES[r][0],PIECES[r][1]);
 }
 
-let p = randomPiece();	 
 
+
+let p = randomPiece();
+
+let q1 = randomPiece();
+q1.x = QueueXOffset + Queue1X;
+q1.y = QueueYOffset + Queue1Y;
+if(q1.tetromino == O) {q1.y = q1.y - 1;}
+
+let q2 = randomPiece();
+q2.x = QueueXOffset + Queue2X;
+q2.y = QueueYOffset + Queue2Y;
+if(q2.tetromino == O) {q2.y = q2.y - 1;}
+
+let q3 = randomPiece();
+q3.x = QueueXOffset + Queue3X;
+q3.y = QueueYOffset + Queue3Y;
+if(q3.tetromino == O) {q3.y = q3.y - 1;}
+
+let h = null;
 
 //The Object Piece
 function Piece(tetromino,color)
@@ -128,7 +217,7 @@ Piece.prototype.moveDown = function()
 	{
 		//lock the piece and create a new one
 		this.lock();
-		p = randomPiece();
+		nextPiece();
 	}
 }
 
@@ -183,6 +272,42 @@ Piece.prototype.rotate = function()
 	}
 }
 
+//rotate piece
+Piece.prototype.hold = function() 
+{
+	if(!h)
+	{
+		h = p;
+		p.unDraw();
+		nextPiece();
+
+		h.x = HoldXOffset + HoldPieceX;
+		h.y = HoldYOffset + HoldPieceY;
+		h.draw();
+
+		HoldUsed = 1;
+	}
+	else if(HoldUsed == 0)
+	{
+		let temp = p;
+		h.unDraw();
+		p.unDraw();
+
+		p = h;
+		p.x = 3;
+		p.y = 0;
+
+		h = temp;
+		h.x = HoldXOffset + HoldPieceX;
+		h.y = HoldYOffset + HoldPieceY;
+
+		h.draw();
+		p.draw();
+
+		HoldUsed = 1;
+	}
+}
+
 //Drop piece
 Piece.prototype.hardDrop = function()
 {
@@ -195,7 +320,7 @@ Piece.prototype.hardDrop = function()
 	
 	//lock the piece and create a new one
 	this.lock();
-	p = randomPiece();
+	nextPiece();
 }
 
 let score = 0;
@@ -280,6 +405,8 @@ Piece.prototype.lock = function()
 	//FOR TESTING
 	progressToNextLevelElement.innerHTML = progressToNextLevel;
 	//
+
+	HoldUsed = 0;
 }
 
 //Update Level and score
@@ -375,10 +502,14 @@ function CONTROL(event)
 		p.moveRight();
 		//dropStart = Date.now();
 	}
-	else if(event.keyCode ==40)
+	else if(event.keyCode == 40)
 	{
 		p.moveDown();
 		dropStart = Date.now();
+	}
+	else if(event.keyCode == 67)
+	{
+		p.hold();
 	}
 	else if(event.keyCode == 32)
 	{
@@ -406,18 +537,40 @@ function drop()
 drop();
 
 
+q1.draw();
+q2.draw();
+q3.draw();
 
 
+function nextPiece()
+{
+	//undraw them all
+	q1.unDraw();
+	q2.unDraw();
+	q3.unDraw();
+
+	//update p from next on queue
+	p = q1;
+	p.x = 3;
+	p.y = -2;
+
+	//update q1
+	q1 = q2;
+	q1.y = q1.y - 3;
+
+	//udpate q2
+	q2 = q3;
+	q2.y = q2.y - 3;
+
+	//create new q3 and move up one space if O because it is a 4x4 instead of 3x3
+	q3 = randomPiece();
+	q3.x = QueueXOffset + Queue3X;
+	q3.y = QueueYOffset + Queue3Y;
+	if(q3.tetromino == O) {q3.y = q3.y - 1;}
 
 
-
-
-
-
-
-
-
-
-
-
+	q1.draw();
+	q2.draw();
+	q3.draw();
+}
 
