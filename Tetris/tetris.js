@@ -524,7 +524,7 @@ function drop()
 {
 	let now = Date.now();
 	let delta = now - dropStart;
-	if(delta > 1000)
+	if(delta > Math.pow(1000,(1-.025*level)))
 	{
 		p.moveDown();
 		dropStart = Date.now();
