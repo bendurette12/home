@@ -168,19 +168,6 @@ shadow.tetromino = p.tetromino;
 shadow.tetrominoN = p.tetrominoN;
 shadow.activeTetromino = p.activeTetromino;
 if(shadow.tetromino == O) {shadow.y = shadow.y - 1;}
-//shadow.draw();
-//shadow.hardDrop();
-
-
-//vvvvvvv for testing
-console.log("p.x = " + p.x);
-console.log("p.y = " + p.y);
-console.log("p.tet = " + p.activeTetromino);
-console.log("shadow.x = " + shadow.x);
-console.log("shadow.y = " + shadow.y);
-console.log("shadow.tet = " + shadow.activeTetromino);
-//^^^^^^^
-
 
 let h = null;
 
@@ -347,21 +334,6 @@ Piece.prototype.hardDrop = function()
 	nextPiece();
 }
 
-//Drop piece for shadow
-//not a method within the piece object
-//seperate function
-//function hardDropShadow()
-//{
-//	while(!shadow.collision(0,1,shadow.activeTetromino))
-//	{
-//		shadow.unDraw();
-//		shadow.y++;
-//		shadow.draw();
-//	}
-//}
-
-
-
 let score = 0;
 let rowsCleared=0;
 let progressToNextLevel = 0
@@ -496,15 +468,6 @@ function updateShadow()
 	shadow.tetrominoN = p.tetrominoN;
 	shadow.activeTetromino = p.activeTetromino;
 	
-//vvvvvvv for testing
-console.log("p.x = " + p.x);
-console.log("p.y = " + p.y);
-console.log("p.tet = " + p.activeTetromino);
-console.log("shadow.x = " + shadow.x);
-console.log("shadow.y = " + shadow.y);
-console.log("shadow.tet = " + shadow.activeTetromino);
-//^^^^^^^	
-	
 	//shadow.hardDrop();
 	//hardDropShadow();
 	while(!shadow.collision(0,1,shadow.activeTetromino))
@@ -514,15 +477,6 @@ console.log("shadow.tet = " + shadow.activeTetromino);
 		shadow.draw();
 	}
 	p.draw();
-	
-	//vvvvvvv for testing
-console.log("p.x = " + p.x);
-console.log("p.y = " + p.y);
-console.log("p.tet = " + p.activeTetromino);
-console.log("shadow.x = " + shadow.x);
-console.log("shadow.y = " + shadow.y);
-console.log("shadow.tet = " + shadow.activeTetromino);
-//^^^^^^^
 }
 
 
