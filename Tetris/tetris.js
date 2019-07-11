@@ -144,6 +144,7 @@ function randomPiece()
 
 let p = randomPiece();
 
+
 let q1 = randomPiece();
 q1.x = QueueXOffset + Queue1X;
 q1.y = QueueYOffset + Queue1Y;
@@ -158,6 +159,28 @@ let q3 = randomPiece();
 q3.x = QueueXOffset + Queue3X;
 q3.y = QueueYOffset + Queue3Y;
 if(q3.tetromino == O) {q3.y = q3.y - 1;}
+
+let shadow = randomPiece();
+shadow.x = p.x;
+shadow.y = p.y + 20;
+shadow.color = "GREY";
+shadow.tetromino = p.tetromino;
+shadow.tetrominoN = p.tetrominoN;
+shadow.activeTetromino = p.activeTetromino;
+if(shadow.tetromino == O) {shadow.y = shadow.y - 1;}
+//shadow.draw();
+//shadow.hardDrop();
+
+
+//vvvvvvv for testing
+console.log("p.x = " + p.x);
+console.log("p.y = " + p.y);
+console.log("p.tet = " + p.activeTetromino);
+console.log("shadow.x = " + shadow.x);
+console.log("shadow.y = " + shadow.y);
+console.log("shadow.tet = " + shadow.activeTetromino);
+//^^^^^^^
+
 
 let h = null;
 
@@ -272,11 +295,12 @@ Piece.prototype.rotate = function()
 	}
 }
 
-//rotate piece
+//rotate piece---------Ben, I think you mean to label this "hold piece", not rotate, you silly goose
 Piece.prototype.hold = function() 
 {
 	if(!h)
 	{
+		shadow.unDraw();
 		h = p;
 		p.unDraw();
 		nextPiece();
@@ -322,6 +346,21 @@ Piece.prototype.hardDrop = function()
 	this.lock();
 	nextPiece();
 }
+
+//Drop piece for shadow
+//not a method within the piece object
+//seperate function
+//function hardDropShadow()
+//{
+//	while(!shadow.collision(0,1,shadow.activeTetromino))
+//	{
+//		shadow.unDraw();
+//		shadow.y++;
+//		shadow.draw();
+//	}
+//}
+
+
 
 let score = 0;
 let rowsCleared=0;
@@ -446,6 +485,46 @@ function updateScoreNLevel()
 	}
 }
 
+//update the location of shadow
+function updateShadow()
+{
+	shadow.unDraw();
+	shadow.x = p.x;
+	shadow.y = p.y;
+	shadow.color = "GREY";
+	shadow.tetromino = p.tetromino;
+	shadow.tetrominoN = p.tetrominoN;
+	shadow.activeTetromino = p.activeTetromino;
+	
+//vvvvvvv for testing
+console.log("p.x = " + p.x);
+console.log("p.y = " + p.y);
+console.log("p.tet = " + p.activeTetromino);
+console.log("shadow.x = " + shadow.x);
+console.log("shadow.y = " + shadow.y);
+console.log("shadow.tet = " + shadow.activeTetromino);
+//^^^^^^^	
+	
+	//shadow.hardDrop();
+	//hardDropShadow();
+	while(!shadow.collision(0,1,shadow.activeTetromino))
+	{
+		shadow.unDraw();
+		shadow.y++;
+		shadow.draw();
+	}
+	p.draw();
+	
+	//vvvvvvv for testing
+console.log("p.x = " + p.x);
+console.log("p.y = " + p.y);
+console.log("p.tet = " + p.activeTetromino);
+console.log("shadow.x = " + shadow.x);
+console.log("shadow.y = " + shadow.y);
+console.log("shadow.tet = " + shadow.activeTetromino);
+//^^^^^^^
+}
+
 
 
 //collision function
@@ -491,16 +570,19 @@ function CONTROL(event)
 	{
 		p.moveLeft();
 		//dropStart = Date.now();
+		updateShadow();
 	}
 	else if(event.keyCode == 38)
 	{
 		p.rotate();
 		//dropStart = Date.now();
+		updateShadow();
 	}
 	else if(event.keyCode == 39)
 	{
 		p.moveRight();
 		//dropStart = Date.now();
+		updateShadow();
 	}
 	else if(event.keyCode == 40)
 	{
@@ -510,6 +592,7 @@ function CONTROL(event)
 	else if(event.keyCode == 67)
 	{
 		p.hold();
+		updateShadow();
 	}
 	else if(event.keyCode == 32)
 	{
@@ -540,6 +623,7 @@ drop();
 q1.draw();
 q2.draw();
 q3.draw();
+shadow.draw();
 
 
 function nextPiece()
@@ -568,7 +652,12 @@ function nextPiece()
 	q3.y = QueueYOffset + Queue3Y;
 	if(q3.tetromino == O) {q3.y = q3.y - 1;}
 
-
+	shadow.x = p.x;
+	shadow.y = p.y;
+	updateShadow();
+	
+	//shadow.draw();
+	
 	q1.draw();
 	q2.draw();
 	q3.draw();
