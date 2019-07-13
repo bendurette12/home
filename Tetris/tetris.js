@@ -254,10 +254,10 @@ Piece.prototype.moveLeft = function()
 	}
 }
 
-//rotate piece
-Piece.prototype.rotate = function() 
+//rotate piece right
+Piece.prototype.rotateRight = function() 
 {
-	let nextPattern = this.tetromino[(this.tetrominoN + 1)%this.tetromino.length];
+	let nextPattern = this.tetromino[(((this.tetrominoN + 1)%this.tetromino.length)+this.tetromino.length)%this.tetromino.length];
 	let kick = 0;
 
 	if(this.collision(0,0,nextPattern))
@@ -277,7 +277,36 @@ Piece.prototype.rotate = function()
 	{
 		this.unDraw();
 		this.x += kick;
-		this.tetrominoN = (this.tetrominoN + 1)%this.tetromino.length;
+		this.tetrominoN = (((this.tetrominoN + 1)%this.tetromino.length)+this.tetromino.length)%this.tetromino.length;
+		this.activeTetromino = this.tetromino[this.tetrominoN];
+		this.draw();
+	}
+}
+
+//rotate piece left
+Piece.prototype.rotateLeft = function() 
+{
+	let kick = 0;
+	let nextPattern = this.tetromino[(((this.tetrominoN - 1)%this.tetromino.length)+this.tetromino.length)%this.tetromino.length];
+
+	if(this.collision(0,0,nextPattern))
+	{
+		if(this.x > COL/2)
+		{
+			//it's the right wall
+			kick = -1;
+		}
+		else
+		{
+			//it's the left wall
+			kick = 1;
+		}
+	}
+	if(!this.collision(kick,0,nextPattern))
+	{
+		this.unDraw();
+		this.x += kick;
+		this.tetrominoN = (((this.tetrominoN - 1)%this.tetromino.length)+this.tetromino.length)%this.tetromino.length;
 		this.activeTetromino = this.tetromino[this.tetrominoN];
 		this.draw();
 	}
@@ -532,7 +561,13 @@ function CONTROL(event)
 	}
 	else if(event.keyCode == 38)
 	{
-		p.rotate();
+		p.rotateRight();
+		//dropStart = Date.now();
+		updateShadow();
+	}
+	else if(event.keyCode == 90)
+	{
+		p.rotateLeft();
 		//dropStart = Date.now();
 		updateShadow();
 	}
