@@ -2,8 +2,9 @@ const cvs = document.getElementById("tetris");
 const ctx = cvs.getContext("2d");
 const scoreElement = document.getElementById("score");
 const levelElement = document.getElementById("level");
-const progressToNextLevelElement = document.getElementById("progressTowardsNextLevel");
-const rowsClearedElement = document.getElementById("rowsCleared");
+//const progressToNextLevelElement = document.getElementById("progressTowardsNextLevel");
+//const rowsClearedElement = document.getElementById("rowsCleared");
+const totalRowsClearedElement = document.getElementById("totalRowsCleared");
 
 const ROW = 20;
 const COL = COLUMN = 10;
@@ -338,6 +339,7 @@ let score = 0;
 let rowsCleared=0;
 let progressToNextLevel = 0
 let level = 1;
+let totalRowsCleared = 0;
 
 //lock piece
 Piece.prototype.lock = function()
@@ -394,6 +396,7 @@ Piece.prototype.lock = function()
 			
 			//increment the number of rows completed
 			rowsCleared++;
+			totalRowsCleared++;
 			//if(progressToNextLevel == 2)
 			//{
 			//	progressToNextLevel = 0;
@@ -414,7 +417,7 @@ Piece.prototype.lock = function()
 	levelElement.innerHTML = level;
 	
 	//FOR TESTING
-	progressToNextLevelElement.innerHTML = progressToNextLevel;
+	//progressToNextLevelElement.innerHTML = progressToNextLevel;
 	//
 
 	HoldUsed = 0;
@@ -445,7 +448,7 @@ function updateScoreNLevel()
 	}
 	
 	//FOR TESTING
-	rowsClearedElement.innerHTML = rowsCleared;
+	//rowsClearedElement.innerHTML = rowsCleared;
 	//
 	
 	rowsCleared = 0;
@@ -472,10 +475,11 @@ function updateShadow()
 	//hardDropShadow();
 	while(!shadow.collision(0,1,shadow.activeTetromino))
 	{
-		shadow.unDraw();
+		//shadow.unDraw();
 		shadow.y++;
-		shadow.draw();
+		
 	}
+	shadow.draw();
 	p.draw();
 }
 
