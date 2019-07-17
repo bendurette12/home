@@ -1,25 +1,40 @@
 <html>
-<head>
-	<title>Gurg</title>
-	<style>
-		.text
-		{
-			display: inline-block;
-		}
-		div
-		{
-			font-size: 25px;
-			font-weight: bold;
-			font-family: monospace;
-		}
-	</style>
-</head>
-<body style="background-color:black;">
-	<p>
-		<a href="../">Home</a>
-	</p>
-	<canvas id="gurg" width="800" height="800"></canvas>
-	<script src="gurg.js"></script>
-	<script src="main.js"></script>
-</body>
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144042582-1"></script>
+		<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+			  gtag('config', 'UA-144042582-1');
+		</script>
+
+
+
+		<link rel="stylesheet" href="main.css">
+
+		<title>Gurg</title>
+		<style>
+			.text
+			{
+				display: inline-block;
+			}
+			div
+			{
+				font-size: 25px;
+				font-weight: bold;
+				font-family: monospace;
+			}
+		</style>
+	</head>
+	<body style="background-color:black;">
+		<p>
+			<a href="../">Home</a>
+		</p>
+		<div id="canvas-container">
+			<canvas id="gurg" width="800" height="800"></canvas>
+		</div>
+		<script src="gurg.js"></script>
+		<script src="main.js"></script>
+	</body>
 </html>
