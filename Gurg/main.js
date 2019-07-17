@@ -28,7 +28,7 @@ function gameLoop(timestamp)
 	}
 
  	drawGurg(g.x,g.y,g.width,g.height,"white");
-	g.x += 4;
+	g.update(delta);
 	drawGurg(g.x,g.y,g.width,g.height,g.color);
 
 	requestAnimationFrame(gameLoop);
