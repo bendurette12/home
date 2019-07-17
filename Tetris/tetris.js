@@ -443,6 +443,7 @@ Piece.prototype.lock = function()
 	//update the level
 	levelElement.innerHTML = level;
 	
+	totalRowsClearedElement.innerHTML = totalRowsCleared;
 	//FOR TESTING
 	//progressToNextLevelElement.innerHTML = progressToNextLevel;
 	//
