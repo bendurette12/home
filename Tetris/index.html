@@ -1,41 +1,112 @@
 <html>
-<head>
-	<title>Tetris</title>
-	<style>
-		.text
-		{
-			display: inline-block;
-		}
-		div
-		{
-			font-size: 25px;
-			font-weight: bold;
-			font-family: monospace;
-		}
-	</style>
-</head>
-<body style="background-color:powderblue;">
-	<p>
-		<a href="../">Home</a>
-	</p>
-	<canvas id="tetris" width="360" height="400"></canvas>
-	<div>
-		Score : <div class="text" id="score">0</div>
-	</div>
-	<div>
-		Level : <div class="text" id="level">1</div>
-	</div>
-	<!--Variables for Testing
-	<div>
-		progressTowardsNextLevel : <div class="text" id="progressTowardsNextLevel">0</div>
-	</div>
-	<div>
-		rowsCleared : <div class="text" id="rowsCleared">0</div>
-	</div>-->
-	<div>
-		Rows Cleared : <div class="text" id="totalRowsCleared">0</div>
-	</div>
-	<script src="tetrominoes.js"></script>
-	<script src="tetris.js"></script>
-</body>
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144042582-1"></script>
+		<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'UA-144042582-1');
+		</script>
+
+		
+
+		<title>Tetris</title>
+		<style>
+			body { background-image:url('../img/grizzley-bear.png') }
+
+			.text
+			{
+				display: inline-block;
+
+			}
+			div
+			{
+				font-size: 25px;
+				font-weight: bold;
+				font-family: monospace;
+				color: white;
+				padding:10px;
+			}
+			#board
+			{
+				float:left;
+				
+				background-color: rgba(255,255,255,0.8);
+				background-color: rgba(0,0,0,0.8);
+			}
+			#controls
+			{
+				float:right;
+				background-color: rgba(255,255,255,0.8);
+				background-color: rgba(255,255,255,0.8);
+				background-color: rgba(0,0,0,0.8);
+			}
+			th
+			{
+				text-align:left;
+				padding:5px;
+				font-size: 25px;
+				border: 1px solid white;
+				color: white;
+			}
+		</style>
+	</head>
+	<body style="background-color:powderblue;">
+		<p>
+			<a href="../">Home</a>
+		</p>
+		<div id="board">
+			<canvas id="tetris" width="360" height="400"></canvas>
+			<div>
+				Score : <div class="text" id="score">0</div>
+			</div>
+			<div>
+				Level : <div class="text" id="level">1</div>
+			</div>
+			<!--Variables for Testing
+			<div>
+				progressTowardsNextLevel : <div class="text" id="progressTowardsNextLevel">0</div>
+			</div>
+			<div>
+				rowsCleared : <div class="text" id="rowsCleared">0</div>
+			</div>-->
+			<div>
+				Rows Cleared : <div class="text" id="totalRowsCleared">0</div>
+			</div>
+		</div>
+
+		<div id="controls">
+			<table>
+				<tr>
+					<th>Left/Right:</th>
+					<th>left arrow/right arrow</th>
+				</tr>
+				<tr>
+					<th>Soft Drop:</th>
+					<th>down arrow</th>
+				</tr>
+				<tr>
+					<th>Hard Drop:</th>
+					<th>space bar</th>
+				</tr>
+				<tr>
+					<th>Rotate Left:</th>
+					<th>z</th>
+				</tr>
+				<tr>
+					<th>Rotate Right:</th>
+					<th>up arrow</th>
+				</tr>
+				<tr>
+					<th>Hold Piece:</th>
+					<th>c</th>
+				</tr>
+			</table>
+		</div>
+
+		<script src="tetrominoes.js"></script>
+		<script src="tetris.js"></script>
+	</body>
 </html>
