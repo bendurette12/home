@@ -2,8 +2,9 @@ const cvs = document.getElementById("tetris");
 const ctx = cvs.getContext("2d");
 const scoreElement = document.getElementById("score");
 const levelElement = document.getElementById("level");
-const progressToNextLevelElement = document.getElementById("progressTowardsNextLevel");
-const rowsClearedElement = document.getElementById("rowsCleared");
+//const progressToNextLevelElement = document.getElementById("progressTowardsNextLevel");
+//const rowsClearedElement = document.getElementById("rowsCleared");
+const totalRowsClearedElement = document.getElementById("totalRowsCleared");
 
 const ROW = 20;
 const COL = COLUMN = 10;
@@ -142,6 +143,7 @@ function randomPiece()
 
 let p = randomPiece();
 
+
 let q1 = randomPiece();
 q1.x = QueueXOffset + Queue1X;
 q1.y = QueueYOffset + Queue1Y;
@@ -156,6 +158,15 @@ let q3 = randomPiece();
 q3.x = QueueXOffset + Queue3X;
 q3.y = QueueYOffset + Queue3Y;
 if(q3.tetromino == O) {q3.y = q3.y - 1;}
+
+let shadow = randomPiece();
+shadow.x = p.x;
+shadow.y = p.y + 20;
+shadow.color = "GREY";
+shadow.tetromino = p.tetromino;
+shadow.tetrominoN = p.tetrominoN;
+shadow.activeTetromino = p.activeTetromino;
+if(shadow.tetromino == O) {shadow.y = shadow.y - 1;}
 
 let h = null;
 
@@ -241,10 +252,10 @@ Piece.prototype.moveLeft = function()
 	}
 }
 
-//rotate piece
-Piece.prototype.rotate = function() 
+//rotate piece right
+Piece.prototype.rotateRight = function() 
 {
-	let nextPattern = this.tetromino[(this.tetrominoN + 1)%this.tetromino.length];
+	let nextPattern = this.tetromino[(((this.tetrominoN + 1)%this.tetromino.length)+this.tetromino.length)%this.tetromino.length];
 	let kick = 0;
 
 	if(this.collision(0,0,nextPattern))
@@ -264,17 +275,47 @@ Piece.prototype.rotate = function()
 	{
 		this.unDraw();
 		this.x += kick;
-		this.tetrominoN = (this.tetrominoN + 1)%this.tetromino.length;
+		this.tetrominoN = (((this.tetrominoN + 1)%this.tetromino.length)+this.tetromino.length)%this.tetromino.length;
 		this.activeTetromino = this.tetromino[this.tetrominoN];
 		this.draw();
 	}
 }
 
-//rotate piece
+//rotate piece left
+Piece.prototype.rotateLeft = function() 
+{
+	let kick = 0;
+	let nextPattern = this.tetromino[(((this.tetrominoN - 1)%this.tetromino.length)+this.tetromino.length)%this.tetromino.length];
+
+	if(this.collision(0,0,nextPattern))
+	{
+		if(this.x > COL/2)
+		{
+			//it's the right wall
+			kick = -1;
+		}
+		else
+		{
+			//it's the left wall
+			kick = 1;
+		}
+	}
+	if(!this.collision(kick,0,nextPattern))
+	{
+		this.unDraw();
+		this.x += kick;
+		this.tetrominoN = (((this.tetrominoN - 1)%this.tetromino.length)+this.tetromino.length)%this.tetromino.length;
+		this.activeTetromino = this.tetromino[this.tetrominoN];
+		this.draw();
+	}
+}
+
+//rotate piece---------Ben, I think you mean to label this "hold piece", not rotate, you silly goose
 Piece.prototype.hold = function() 
 {
 	if(!h)
 	{
+		shadow.unDraw();
 		h = p;
 		p.unDraw();
 		nextPiece();
@@ -325,6 +366,7 @@ let score = 0;
 let rowsCleared=0;
 let progressToNextLevel = 0
 let level = 1;
+let totalRowsCleared = 0;
 
 //lock piece
 Piece.prototype.lock = function()
@@ -381,6 +423,7 @@ Piece.prototype.lock = function()
 			
 			//increment the number of rows completed
 			rowsCleared++;
+			totalRowsCleared++;
 			//if(progressToNextLevel == 2)
 			//{
 			//	progressToNextLevel = 0;
@@ -401,7 +444,7 @@ Piece.prototype.lock = function()
 	levelElement.innerHTML = level;
 	
 	//FOR TESTING
-	progressToNextLevelElement.innerHTML = progressToNextLevel;
+	//progressToNextLevelElement.innerHTML = progressToNextLevel;
 	//
 
 	HoldUsed = 0;
@@ -432,7 +475,7 @@ function updateScoreNLevel()
 	}
 	
 	//FOR TESTING
-	rowsClearedElement.innerHTML = rowsCleared;
+	//rowsClearedElement.innerHTML = rowsCleared;
 	//
 	
 	rowsCleared = 0;
@@ -442,6 +485,29 @@ function updateScoreNLevel()
 		level++;
 		progressToNextLevel = progressToNextLevel%15;
 	}
+}
+
+//update the location of shadow
+function updateShadow()
+{
+	shadow.unDraw();
+	shadow.x = p.x;
+	shadow.y = p.y;
+	shadow.color = "GREY";
+	shadow.tetromino = p.tetromino;
+	shadow.tetrominoN = p.tetrominoN;
+	shadow.activeTetromino = p.activeTetromino;
+	
+	//shadow.hardDrop();
+	//hardDropShadow();
+	while(!shadow.collision(0,1,shadow.activeTetromino))
+	{
+		//shadow.unDraw();
+		shadow.y++;
+		
+	}
+	shadow.draw();
+	p.draw();
 }
 
 
@@ -489,16 +555,25 @@ function CONTROL(event)
 	{
 		p.moveLeft();
 		//dropStart = Date.now();
+		updateShadow();
 	}
 	else if(event.keyCode == 38)
 	{
-		p.rotate();
+		p.rotateRight();
 		//dropStart = Date.now();
+		updateShadow();
+	}
+	else if(event.keyCode == 90)
+	{
+		p.rotateLeft();
+		//dropStart = Date.now();
+		updateShadow();
 	}
 	else if(event.keyCode == 39)
 	{
 		p.moveRight();
 		//dropStart = Date.now();
+		updateShadow();
 	}
 	else if(event.keyCode == 40)
 	{
@@ -508,6 +583,7 @@ function CONTROL(event)
 	else if(event.keyCode == 67)
 	{
 		p.hold();
+		updateShadow();
 	}
 	else if(event.keyCode == 32)
 	{
@@ -522,7 +598,7 @@ function drop()
 {
 	let now = Date.now();
 	let delta = now - dropStart;
-	if(delta > 1000)
+	if(delta > Math.pow(1000,(1-.025*level)))
 	{
 		p.moveDown();
 		dropStart = Date.now();
@@ -538,6 +614,7 @@ drop();
 q1.draw();
 q2.draw();
 q3.draw();
+shadow.draw();
 
 
 function nextPiece()
@@ -566,7 +643,12 @@ function nextPiece()
 	q3.y = QueueYOffset + Queue3Y;
 	if(q3.tetromino == O) {q3.y = q3.y - 1;}
 
-
+	shadow.x = p.x;
+	shadow.y = p.y;
+	updateShadow();
+	
+	//shadow.draw();
+	
 	q1.draw();
 	q2.draw();
 	q3.draw();
