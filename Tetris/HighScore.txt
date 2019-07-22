@@ -1,0 +1,6 @@
+[
+	{ "name":"Joel", "score":"18250", "date":"7/21/2019" },
+	{ "name":"Bob", "score":800, "date":"7/22/2019" },
+	{ "name":"not Ben, lol", "score":"100", "date":"not likely" }
+
+]

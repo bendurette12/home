@@ -36,6 +36,13 @@
 				background-color: rgba(255,255,255,0.8);
 				background-color: rgba(0,0,0,0.8);
 			}
+			#highScores
+			{
+				float:center;
+				color: rgba(255,255,255,0.8);
+				background-color: rgba(255,255,255,0.8);
+				background-color: rgba(0,0,0,0.8);
+			}
 			#controls
 			{
 				float:right;
@@ -77,6 +84,23 @@
 			</div>
 		</div>
 
+	
+		<div id="scores">
+			<table id="highScores">
+				<caption><font size=20 color=black><b>High Scores</b></font></caption>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Score</th>
+						<th>Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--filled with json data-->
+				</tbody>
+			</table>
+		</div>
+
 		<div id="controls">
 			<table>
 				<tr>
@@ -105,8 +129,9 @@
 				</tr>
 			</table>
 		</div>
-
+	
 		<script src="tetrominoes.js"></script>
 		<script src="tetris.js"></script>
+		<script src="HighScore.js"></script>
 	</body>
 </html>
