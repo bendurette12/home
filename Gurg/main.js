@@ -9,9 +9,10 @@ ctx.fillRect(0,0,boardWidth,boardHeight);
 
 
 let g = new Gurg();
+let r = new Rascal();
 
 drawGurg(g.x,g.y,g.width,g.height,g.color);
-
+drawRascal(r.x, r.y ,r.radius, r.color);
 
 
 
@@ -26,9 +27,23 @@ function gameLoop(timestamp)
 	{
 		g.x = -30;
 	}
+	if (g.x < -30)
+	{
+		g.x = boardWidth;
+	}
+
+	if (g.y > boardHeight)
+	{
+		g.y = -30;
+	}
+	if (g.y < -30)
+	{
+		g.y = boardHeight;
+	}
 
  	drawGurg(g.x,g.y,g.width,g.height,"white");
 	g.update(delta);
+	drawRascal(r.x,r.y,r.radius,r.color);
 	drawGurg(g.x,g.y,g.width,g.height,g.color);
 
 	requestAnimationFrame(gameLoop);
