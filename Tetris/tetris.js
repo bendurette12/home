@@ -30,6 +30,8 @@ const HoldPieceX = 1;
 const HoldPieceY = 1;
 let HoldUsed = 0;
 
+
+
 //draw a square
 function drawSquare(x,y,color)
 {
@@ -385,9 +387,13 @@ Piece.prototype.lock = function()
 			//pieces to lock on top = game over
 			if(this.y + r < 0)
 			{
-				alert("Game Over");
+				
 				//stop request animation fram
 				gameOver = true;
+
+				//call function to check high schore
+				checkCurrentScore();
+
 				break;
 			}
 			//we lock the piece
@@ -657,3 +663,134 @@ function nextPiece()
 	q3.draw();
 }
 
+
+
+
+
+////////////scoreboard stuff
+
+
+//get reference to table body
+const scoreBody = document.querySelector("#highScores > tbody");
+
+//console.log(scoreBody);
+var scores = 0;
+const xmlhttp = new XMLHttpRequest();
+function loadScores ()
+{
+	//const xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange = function() {
+  		if (this.readyState == 4 && this.status == 200) {
+    		scores = JSON.parse(this.responseText);
+    		populateScores(scores);
+  		}
+	};
+	xmlhttp.open("GET", "HighScore.txt", true);
+	xmlhttp.send();
+}
+
+function populateScores (scores)
+{
+	//console.log(json);
+
+	//emptys table
+	while(scoreBody.firstChild)
+	{
+		scoreBody.removeChild(scoreBody.firstChild);
+	}
+
+	//populate table
+	scores.forEach((row) => {
+		const tr = document.createElement("tr");
+
+		var tdName = document.createElement("td");
+		tdName.textContent = row.name;
+		tr.appendChild(tdName);
+
+		var tdScore = document.createElement("td");
+		tdScore.textContent = row.score;
+		tr.appendChild(tdScore);
+
+		var tdDate = document.createElement("td");
+		tdDate.textContent = row.date;
+		tr.appendChild(tdDate);
+
+		//tr.appendChild(row.name);
+		//tr.appendChild(row.score);
+		//tr.appendChild(row.date);
+		//console.log(row.name);
+		//console.log(row.score);
+		//console.log(row.date);
+
+		scoreBody.appendChild(tr);
+	});
+}
+
+//document.addEventListener("DOMContentLoaded", () => { loadScores(); });
+document.addEventListener("DOMContentLoaded", loadScores);
+
+
+
+//check if users score is high score
+function checkCurrentScore()
+{
+	console.log(scores);
+	console.log("beep");
+	//if(1==1)
+	if(scores[scores.length-1].score < score)
+	{
+		console.log("You made it on the board!");
+
+		//ask for name
+		var name = prompt("You've made it on the scoreboard!! Please enter your name", "Joel is the default name, cause he's gonna be getting most of those top scores");
+
+		//get date
+		var d = new Date();
+		var day = d.getDate();
+		var month = d.getMonth()+1;
+		var year = d.getFullYear();
+		var date = month + "/" + day + "/" + year;
+		var newScore = {"name":name, "score":score, "date": date};
+		console.log(newScore);
+		//find the correct spot on the scoreboard for the new score
+		var spot = scores.length-1;
+		while(score > scores[spot].score)
+		{
+			console.log(scores[spot].score);
+			console.log(spot);
+			spot--;
+		}
+
+		//add name, score, date to array
+		scores.splice(spot+1,0,newScore);
+		if(scores.length > 10)
+		{
+			scores.pop();
+		}
+		populateScores(scores);
+		//save array back to text file
+		var myJSON = JSON.stringify(scores, null, 2);
+		xmlhttp.open("POST","HighScore2.txt");
+		xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+		xmlhttp.send(myJSON);
+
+		//console.log(myJSON);
+		//var fs = require('fs');
+		/*
+		fs.writeFileSync('HighScore.txt', myJSON, finished);
+		function finished(err)
+		{
+			console.log('oops');
+		}
+		*/
+		console.log(myJSON);
+	}
+	else
+	{
+		alert("Game Over");
+	}
+	console.log(scores);
+}
+
+//save scores to file

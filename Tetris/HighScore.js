@@ -1,16 +1,16 @@
-
+/*
 //get reference to table body
 const scoreBody = document.querySelector("#highScores > tbody");
 
 //console.log(scoreBody);
-
+var scores = 0;
 function loadScores ()
 {
 	const xmlhttp = new XMLHttpRequest();
 
 	xmlhttp.onreadystatechange = function() {
   		if (this.readyState == 4 && this.status == 200) {
-    		var scores = JSON.parse(this.responseText);
+    		scores = JSON.parse(this.responseText);
     		populateScores(scores);
   		}
 	};
@@ -55,5 +55,26 @@ function populateScores (json)
 	});
 }
 
-document.addEventListener("DOMContentLoaded", () => { loadScores(); });
-//loadScores();
+//document.addEventListener("DOMContentLoaded", () => { loadScores(); });
+document.addEventListener("DOMContentLoaded", loadScores);
+
+
+
+//check if users score is high score
+function checkCurrentScore()
+{
+	if(scores[scores.length-1].score < score)
+	{
+		console.log("boop");
+		//ask for name
+
+		//get date
+
+		//add name, score, date to array
+
+		//save array back to text file
+	}
+	return;
+}
+
+//save scores to file
