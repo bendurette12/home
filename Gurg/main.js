@@ -27,7 +27,10 @@ function gameLoop(timestamp)
 		g.x = -30;
 	}
 
- 	drawGurg(g.x,g.y,g.width,g.height,"white");
+// 	drawGurg(g.x,g.y,g.width,g.height,"white");
+	ctx.clearRect(0,0,boardWidth,boardHeight);
+	ctx.fillStyle = "white";
+	ctx.fillRect(0,0,boardWidth,boardHeight);
 	g.update(delta);
 	drawGurg(g.x,g.y,g.width,g.height,g.color);
 
