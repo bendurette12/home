@@ -40,12 +40,13 @@ function gameLoop(timestamp)
 	{
 		g.y = boardHeight;
 	}
-
+	if (delta > 17) console.log(delta);
 // 	drawGurg(g.x,g.y,g.width,g.height,"white");
 	ctx.clearRect(0,0,boardWidth,boardHeight);
 	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,boardWidth,boardHeight);
 	g.update(delta);
+	r.update(delta);
 	drawRascal(r.x,r.y,r.radius,r.color);
 	drawGurg(g.x,g.y,g.width,g.height,g.color);
 
