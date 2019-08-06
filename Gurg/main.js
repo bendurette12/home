@@ -9,7 +9,7 @@ ctx.fillRect(0,0,boardWidth,boardHeight);
 
 
 let g = new Gurg();
-let r = new Rascal();
+let r = new Rascal(50,300,path1);
 
 drawGurg(g.x,g.y,g.height,g.width,g.color);
 drawRascal(r.x, r.y ,r.height,r.width, r.color);

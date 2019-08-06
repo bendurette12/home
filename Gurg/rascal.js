@@ -1,13 +1,16 @@
 
 
-function Rascal()
+function Rascal(x,y,path)
 {
 	this.color = "orange";
 
-	this.path = path1;
+	this.path = path;
+	this.pathState = 0;
+	this.xPathDistance = 0;
+	this.yPathDistance = 0;
 
-	this.x = 50;
-	this.y = 300;
+	this.x = x;
+	this.y = y;
 	this.xSpeed = 0;
 	this.ySpeed = 0;
 	this.maxSpeed = 7;
@@ -24,57 +27,20 @@ function drawRascal(x,y,height,width,color)
 }
 
 
-Rascal.prototype.moveLeft = function() 
-{
-	this.xSpeed = -this.maxSpeed;
-}
-Rascal.prototype.moveRight = function() 
-{
-	this.xSpeed = this.maxSpeed;
-}
-Rascal.prototype.moveUp = function() 
-{
-	this.ySpeed = -this.maxSpeed;
-}
-Rascal.prototype.moveDown = function() 
-{
-	this.ySpeed = this.maxSpeed;
-}
-Rascal.prototype.xStop = function() 
-{
-	this.xSpeed = 0;
-}
-Rascal.prototype.yStop = function() 
-{
-	this.ySpeed = 0;
-}
-
-
-var distance = 0;
-
 Rascal.prototype.checkPath = function()
 {
-/*
-	if(this.path[0][0] == 0) //circle pattern
+
+	if((this.xPathDistance >= this.path[this.pathState][xPathMax]) && 
+		(this.yPathDistance >= this.path[this.pathState][yPathMax]))
 	{
+		this.pathState = (this.pathState + 1)%this.path.length;
+
+		this.xPathDistance = 0;
+		this.yPathDistance = 0;
 
 	}
-	else if(this.path[0][0] == 1) //oscillate pattern
-	{
-		add loop for oscillating 
-		check xMax and yMax elements, if greater than both then increment state 
-	}
-*/
-
-
-	if(distance > 700)
-	{
-		this.xSpeed = this.path[1][0];
-	}
-	else if(distance < 100)
-	{
-		this.xSpeed = this.path[0][0];
-	}
+	this.xSpeed = this.path[this.pathState][xPathSpeed];
+	this.ySpeed = this.path[this.pathState][yPathSpeed];
 }
 
 
@@ -84,9 +50,11 @@ Rascal.prototype.update = function(delta)
 
 	this.checkPath();
 
-	this.x += this.xSpeed*delta;
+	this.x += this.xSpeed*delta; 
+	this.y += this.ySpeed*delta; 
 
-	distance += this.xSpeed*delta;
+	this.xPathDistance += Math.abs(this.xSpeed*delta);
+	this.yPathDistance += Math.abs(this.ySpeed*delta);
 }
 
 
