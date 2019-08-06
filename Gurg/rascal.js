@@ -4,20 +4,23 @@ function Rascal()
 {
 	this.color = "orange";
 
-	this.x = 300;
+	this.path = path1;
+
+	this.x = 50;
 	this.y = 300;
 	this.xSpeed = 0;
 	this.ySpeed = 0;
 	this.maxSpeed = 7;
 
-	this.radius = 20;
+	this.height = 30;
+	this.width = 30;
 }
 
 
-function drawRascal(x,y,radius,color)
+function drawRascal(x,y,height,width,color)
 {
 	ctx.fillStyle = color;
-	ctx.fillRect(x,y,30,30);
+	ctx.fillRect(x,y,height,width);
 }
 
 
@@ -46,10 +49,44 @@ Rascal.prototype.yStop = function()
 	this.ySpeed = 0;
 }
 
+
+var distance = 0;
+
+Rascal.prototype.checkPath = function()
+{
+/*
+	if(this.path[0][0] == 0) //circle pattern
+	{
+
+	}
+	else if(this.path[0][0] == 1) //oscillate pattern
+	{
+		add loop for oscillating 
+		check xMax and yMax elements, if greater than both then increment state 
+	}
+*/
+
+
+	if(distance > 700)
+	{
+		this.xSpeed = this.path[1][0];
+	}
+	else if(distance < 100)
+	{
+		this.xSpeed = this.path[0][0];
+	}
+}
+
+
 Rascal.prototype.update = function(delta)
 {
 	if(!delta) return;
 
-	this.x += this.xSpeed;
-	this.y += this.ySpeed;
+	this.checkPath();
+
+	this.x += this.xSpeed*delta;
+
+	distance += this.xSpeed*delta;
 }
+
+
