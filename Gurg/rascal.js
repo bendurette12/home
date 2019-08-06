@@ -17,8 +17,7 @@ function Rascal()
 function drawRascal(x,y,radius,color)
 {
 	ctx.fillStyle = color;
-	ctx.arc(x,y,radius, 2*Math.PI, 0);
-	ctx.fill();
+	ctx.fillRect(x,y,30,30);
 }
 
 

@@ -8,7 +8,7 @@ function Gurg()
 	this.y = 400;
 	this.xSpeed = 0;
 	this.ySpeed = 0;
-	this.maxSpeed = 100;
+	this.maxSpeed = .3;
 
 	this.height = 30;
 	this.width = 30;
@@ -51,6 +51,6 @@ Gurg.prototype.update = function(delta)
 {
 	if(!delta) return;
 
-	this.x += this.xSpeed/delta;
-	this.y += this.ySpeed/delta;
+	this.x += this.xSpeed*delta;
+	this.y += this.ySpeed*delta;
 }
