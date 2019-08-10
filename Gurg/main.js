@@ -16,7 +16,7 @@ drawRascal(r.x, r.y ,r.radius, r.color);
 
 
 
-
+let gameOver = false;
 let lastTime = 0;
 function gameLoop(timestamp)
 {
@@ -50,7 +50,12 @@ function gameLoop(timestamp)
 	drawRascal(r.x,r.y,r.radius,r.color);
 	drawGurg(g.x,g.y,g.width,g.height,g.color);
 
-	requestAnimationFrame(gameLoop);
+	collisionP();
+	if(!gameOver)
+	{
+		requestAnimationFrame(gameLoop);
+	}
+
 	
 }
 gameLoop();
