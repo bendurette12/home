@@ -1,4 +1,3 @@
-//Collision
 
 
 function collisionP()
@@ -8,15 +7,19 @@ function collisionP()
 	//rNextX = r.x + (delta * r.xSpeed);
 	//rNextY = r.y + (delta * r.ySpeed);
 
-	console.log(g.x < (r.x + r.width));
-	console.log(g.x > (r.x - g.width));
-	console.log("bop");
+	//console.log(g.x < (r.x + r.width));
+	//console.log(g.x > (r.x - g.width));
+	//console.log("bop");
 
-	if((g.x > (r.x - g.width)) && (g.x < (r.x + r.width)))
+	for(i=0; i < baddies.length; i++)
 	{
-		alert("You Dead :(");
-		gameOver = true;
+		if((g.x > (baddies[i].x - g.width)) && (g.x < (baddies[i].x + baddies[i].width))  &&  (g.y > (baddies[i].y - g.height)) && (g.y < (baddies[i].y + baddies[i].height)))
+		{
+			alert("You Dead :(");
+			gameOver = true;
+		}
 	}
+	
 
 }
 

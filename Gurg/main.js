@@ -9,10 +9,18 @@ ctx.fillRect(0,0,boardWidth,boardHeight);
 
 
 let g = new Gurg();
-let r = new Rascal();
+//let r = new Rascal();
+let baddies = [];
+baddies.push(new Rascal(300, 300));
+baddies.push(new Rascal(200, 400));
+baddies.push(new Rascal(500, 700));
 
 drawGurg(g.x,g.y,g.width,g.height,g.color);
-drawRascal(r.x, r.y ,r.radius, r.color);
+for(i=0; i < baddies.length; i++)
+{
+	drawRascal(baddies[i].x, baddies[i].y, baddies[i].width, baddies[i].height, baddies[i].color);
+}
+//drawRascal(r.x, r.y, r.width, r.height, r.color);
 
 
 
@@ -46,11 +54,17 @@ function gameLoop(timestamp)
 	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,boardWidth,boardHeight);
 	g.update(delta);
-	r.update(delta);
-	drawRascal(r.x,r.y,r.radius,r.color);
+	//r.update(delta);
+	for(i=0; i < baddies.length; i++)
+	{
+		baddies[i].update(delta);
+		drawRascal(baddies[i].x, baddies[i].y, baddies[i].width, baddies[i].height, baddies[i].color);
+	}
 	drawGurg(g.x,g.y,g.width,g.height,g.color);
 
+	//console.log("Before collision");
 	collisionP();
+	//console.log("After collision");
 	if(!gameOver)
 	{
 		requestAnimationFrame(gameLoop);
