@@ -14,7 +14,6 @@ function Gurg()
 	this.width = 30;
 }
 
-
 function drawGurg(x,y,height,width,color)
 {
 	ctx.fillStyle = color;

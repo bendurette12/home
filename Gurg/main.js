@@ -9,6 +9,7 @@ ctx.fillRect(0,0,boardWidth,boardHeight);
 
 
 let g = new Gurg();
+let chopper = new Chopper();
 //let r = new Rascal();
 let baddies = [];
 baddies.push(new Rascal(300, 300));
@@ -16,13 +17,11 @@ baddies.push(new Rascal(200, 400));
 baddies.push(new Rascal(500, 700));
 
 drawGurg(g.x,g.y,g.width,g.height,g.color);
+//draw bad guys
 for(i=0; i < baddies.length; i++)
 {
 	drawRascal(baddies[i].x, baddies[i].y, baddies[i].width, baddies[i].height, baddies[i].color);
 }
-//drawRascal(r.x, r.y, r.width, r.height, r.color);
-
-
 
 let gameOver = false;
 let lastTime = 0;
@@ -61,16 +60,18 @@ function gameLoop(timestamp)
 		drawRascal(baddies[i].x, baddies[i].y, baddies[i].width, baddies[i].height, baddies[i].color);
 	}
 	drawGurg(g.x,g.y,g.width,g.height,g.color);
+	chopper.x = g.x + (g.width/2);
+	chopper.y = g.y + (g.height/2);
+	drawChopper(chopper.x,chopper.y,chopper.length,chopper.width,chopper.direction,chopper.color);
 
-	//console.log("Before collision");
 	collisionP();
-	//console.log("After collision");
 	if(!gameOver)
 	{
 		requestAnimationFrame(gameLoop);
 	}
 
-	
+	//"unchop" so that the player can't leave their weapon activated indefinitely
+	//chop = NotPressed;
 }
 gameLoop();
 

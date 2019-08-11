@@ -29,6 +29,22 @@ document.addEventListener("keydown",event =>
 			g.moveDown();
 			downArrow = Pressed;
 			break;
+
+		case 87:
+			chopper.chopUp();
+			break;
+
+		case 83:
+			chopper.chopDown();
+			break;
+
+		case 65:
+			chopper.chopLeft();
+			break;
+
+		case 68:
+			chopper.chopRight();
+			break;
 	}
 });
 
