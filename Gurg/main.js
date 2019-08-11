@@ -53,6 +53,7 @@ function gameLoop(timestamp)
 	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,boardWidth,boardHeight);
 	g.update(delta);
+	chopper.update();
 	//r.update(delta);
 	for(i=0; i < baddies.length; i++)
 	{
@@ -60,9 +61,7 @@ function gameLoop(timestamp)
 		drawRascal(baddies[i].x, baddies[i].y, baddies[i].width, baddies[i].height, baddies[i].color);
 	}
 	drawGurg(g.x,g.y,g.width,g.height,g.color);
-	chopper.x = g.x + (g.width/2);
-	chopper.y = g.y + (g.height/2);
-	drawChopper(chopper.x,chopper.y,chopper.length,chopper.width,chopper.direction,chopper.color);
+	drawChopper();
 
 	collisionP();
 	if(!gameOver)

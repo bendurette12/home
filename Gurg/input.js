@@ -75,5 +75,21 @@ document.addEventListener("keyup",event =>
 			else if (g.ySpeed > 0) g.yStop();
 			downArrow = NotPressed;
 			break;
+
+		case 87: //w
+			chopper.sheath();
+			break;
+
+		case 83: //s
+			chopper.sheath();
+			break;
+
+		case 65: //a
+			chopper.sheath();
+			break;
+
+		case 68: //d
+			chopper.sheath();
+			break;
 	}
 });
