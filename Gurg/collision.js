@@ -13,26 +13,40 @@ function collisionP()
 	}
 
 	//check if Gurg made a chop on a baddie
-	if(chopper.direction == sheathed)
+	if(chopper.direction != sheathed)
 	{
-		return;
-	}
-	
-	for(i=0; i < baddies.length; i++)
-	{
-		if(chopper.direction == 1 || chopper.direction == 2)
+		for(i=0; i < baddies.length; i++)
 		{
-			if((chopper.x > (baddies[i].x - chopper.width)) && (chopper.x < (baddies[i].x + baddies[i].width))  &&  (chopper.y > (baddies[i].y - chopper.length)) && (chopper.y < (baddies[i].y + baddies[i].height)))
+			if(chopper.direction == 1 || chopper.direction == 2)
 			{
-				baddies.splice(i,1);
+				if((chopper.x > (baddies[i].x - chopper.width)) && (chopper.x < (baddies[i].x + baddies[i].width))  &&  (chopper.y > (baddies[i].y - chopper.length)) && (chopper.y < (baddies[i].y + baddies[i].height)))
+				{
+					baddies.splice(i,1);
+				}
+			}
+
+			else if(chopper.direction == 3 || chopper.direction == 4)
+			{
+				if((chopper.x > (baddies[i].x - chopper.length)) && (chopper.x < (baddies[i].x + baddies[i].width))  &&  (chopper.y > (baddies[i].y - chopper.width)) && (chopper.y < (baddies[i].y + baddies[i].height)))
+				{
+					baddies.splice(i,1);
+				}
 			}
 		}
+	}
 
-		else if(chopper.direction == 3 || chopper.direction == 4)
+	//check if any bullets hit a baddie
+	for(i=0; i < baddies.length; i++)
+	{
+		for(k=0; k < shots.length; k++)
 		{
-			if((chopper.x > (baddies[i].x - chopper.length)) && (chopper.x < (baddies[i].x + baddies[i].width))  &&  (chopper.y > (baddies[i].y - chopper.width)) && (chopper.y < (baddies[i].y + baddies[i].height)))
+			if((shots[k].x > (baddies[i].x - shots[k].size)) && (shots[k].x < (baddies[i].x + baddies[i].width))  &&  (shots[k].y > (baddies[i].y - shots[k].size)) && (shots[k].y < (baddies[i].y + baddies[i].height)))
 			{
+				console.log("hit");
 				baddies.splice(i,1);
+				shots.splice(k,1);
+				//k--;
+				//i--;
 			}
 		}
 	}

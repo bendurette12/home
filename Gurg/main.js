@@ -10,6 +10,7 @@ ctx.fillRect(0,0,boardWidth,boardHeight);
 
 let g = new Gurg();
 let chopper = new Chopper();
+let shots = [];
 //let r = new Rascal();
 let baddies = [];
 baddies.push(new Rascal(300, 300));
@@ -53,8 +54,21 @@ function gameLoop(timestamp)
 	ctx.fillStyle = "white";
 	ctx.fillRect(0,0,boardWidth,boardHeight);
 	g.update(delta);
+
 	chopper.update();
-	//r.update(delta);
+	for(i=0; i < shots.length; i++)
+	{
+		shotRemoved = 0;
+		shotRemoved = shots[i].update(delta, i);
+		if(shotRemoved == 0)
+		{
+			drawShot(shots[i].x, shots[i].y, shots[i].size, shots[i].size, shots[i].color);
+		}
+		else
+		{
+			i--;
+		}
+	}
 	for(i=0; i < baddies.length; i++)
 	{
 		baddies[i].update(delta);

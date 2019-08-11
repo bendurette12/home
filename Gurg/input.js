@@ -30,20 +30,60 @@ document.addEventListener("keydown",event =>
 			downArrow = Pressed;
 			break;
 
-		case 87:
-			chopper.chopUp();
+		case 69: //e, changes to melee weapon
+			g.melee();
 			break;
 
-		case 83:
-			chopper.chopDown();
+		case 82: //r, changes to ranged weapon
+			g.ranged();
 			break;
 
-		case 65:
-			chopper.chopLeft();
+		case 87: //w
+			if(g.weapon == ranged)
+			{
+				//shoot a thing
+				shootUp();
+			}
+			else
+			{
+				chopper.chopUp();
+			}
 			break;
 
-		case 68:
-			chopper.chopRight();
+		case 83: //s
+			if(g.weapon == ranged)
+			{
+				//shoot a thing
+				shootDown();
+			}
+			else
+			{
+				chopper.chopDown();
+			}
+			break;
+
+		case 65: //a
+			if(g.weapon == ranged)
+			{
+				//shoot a thing
+				shootLeft();
+			}
+			else
+			{
+				chopper.chopLeft();
+			}
+			break;
+
+		case 68: //d
+			if(g.weapon == ranged)
+			{
+				//shoot a thing
+				shootRight();
+			}
+			else
+			{
+				chopper.chopRight();
+			}
 			break;
 	}
 });
