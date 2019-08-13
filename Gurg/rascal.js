@@ -1,23 +1,24 @@
 
 
-function Rascal()
+function Rascal(x,y)
 {
 	this.color = "orange";
 
-	this.x = 300;
-	this.y = 300;
+	this.x = x;
+	this.y = y;
 	this.xSpeed = 0;
 	this.ySpeed = 0;
 	this.maxSpeed = 7;
 
-	this.radius = 20;
+	this.height = 30;
+	this.width = 30;
 }
 
 
-function drawRascal(x,y,radius,color)
+function drawRascal(x,y,height,width,color)
 {
 	ctx.fillStyle = color;
-	ctx.fillRect(x,y,30,30);
+	ctx.fillRect(x,y,height,width);
 }
 
 

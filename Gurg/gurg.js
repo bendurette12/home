@@ -1,4 +1,5 @@
-
+const melee = 0;
+const ranged = 1;
 
 function Gurg()
 {
@@ -8,12 +9,12 @@ function Gurg()
 	this.y = 400;
 	this.xSpeed = 0;
 	this.ySpeed = 0;
-	this.maxSpeed = .3;
+	this.maxSpeed = .2;
 
 	this.height = 30;
 	this.width = 30;
+	this.weapon = melee;
 }
-
 
 function drawGurg(x,y,height,width,color)
 {
@@ -53,4 +54,15 @@ Gurg.prototype.update = function(delta)
 
 	this.x += this.xSpeed*delta;
 	this.y += this.ySpeed*delta;
+}
+
+Gurg.prototype.ranged = function()
+{
+	g.weapon = ranged;
+	//chopper.direction = sheathed;
+}
+
+Gurg.prototype.melee = function()
+{
+	g.weapon = melee;
 }

@@ -29,6 +29,62 @@ document.addEventListener("keydown",event =>
 			g.moveDown();
 			downArrow = Pressed;
 			break;
+
+		case 69: //e, changes to melee weapon
+			g.melee();
+			break;
+
+		case 82: //r, changes to ranged weapon
+			g.ranged();
+			break;
+
+		case 87: //w
+			if(g.weapon == ranged)
+			{
+				//shoot a thing
+				shootUp();
+			}
+			else
+			{
+				chopper.chopUp();
+			}
+			break;
+
+		case 83: //s
+			if(g.weapon == ranged)
+			{
+				//shoot a thing
+				shootDown();
+			}
+			else
+			{
+				chopper.chopDown();
+			}
+			break;
+
+		case 65: //a
+			if(g.weapon == ranged)
+			{
+				//shoot a thing
+				shootLeft();
+			}
+			else
+			{
+				chopper.chopLeft();
+			}
+			break;
+
+		case 68: //d
+			if(g.weapon == ranged)
+			{
+				//shoot a thing
+				shootRight();
+			}
+			else
+			{
+				chopper.chopRight();
+			}
+			break;
 	}
 });
 
@@ -58,6 +114,22 @@ document.addEventListener("keyup",event =>
 			if (upArrow == Pressed) g.moveUp();
 			else if (g.ySpeed > 0) g.yStop();
 			downArrow = NotPressed;
+			break;
+
+		case 87: //w
+			chopper.sheath();
+			break;
+
+		case 83: //s
+			chopper.sheath();
+			break;
+
+		case 65: //a
+			chopper.sheath();
+			break;
+
+		case 68: //d
+			chopper.sheath();
 			break;
 	}
 });
