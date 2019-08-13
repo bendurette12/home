@@ -1,5 +1,4 @@
 
-
 function Rascal(x,y,path)
 {
 	this.color = "orange";
@@ -8,7 +7,6 @@ function Rascal(x,y,path)
 	this.pathState = 0;
 	this.xPathDistance = 0;
 	this.yPathDistance = 0;
-
 	this.x = x;
 	this.y = y;
 	this.xSpeed = 0;
