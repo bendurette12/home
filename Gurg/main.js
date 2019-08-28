@@ -7,14 +7,12 @@ const boardWidth = 800;
 var background = new Image();
 background.src = "img/Dungeon_cropped800.png";
 
-ctx.fillStyle = "white";
-ctx.fillRect(0,0,boardWidth,boardHeight);
+ctx.drawImage(background, 0, 0);
 
 
 let g = new Gurg();
 let chopper = new Chopper();
 let shots = [];
-//let r = new Rascal();
 let baddies = [];
 baddies.push(new Rascal(300, 300, path1));
 baddies.push(new Rascal(200, 400, path1));
@@ -52,10 +50,7 @@ function gameLoop(timestamp)
 		g.y = boardHeight;
 	}
 	if (delta > 17) console.log(delta);
-// 	drawGurg(g.x,g.y,g.width,g.height,"white");
 	ctx.clearRect(0,0,boardWidth,boardHeight);
-	ctx.fillStyle = "white";
-//	ctx.fillRect(0,0,boardWidth,boardHeight);
 	ctx.drawImage(background, 0, 0);
 	g.update(delta);
 
