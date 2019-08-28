@@ -40,13 +40,21 @@ function collisionP()
 	{
 		for(k=0; k < shots.length; k++)
 		{
+			console.log(baddies.length);
+			console.log(baddies[i]);
+			console.log(i);
+			console.log(baddies[i].x);
 			if((shots[k].x > (baddies[i].x - shots[k].size)) && (shots[k].x < (baddies[i].x + baddies[i].width))  &&  (shots[k].y > (baddies[i].y - shots[k].size)) && (shots[k].y < (baddies[i].y + baddies[i].height)))
 			{
 				console.log("hit");
 				baddies.splice(i,1);
 				shots.splice(k,1);
-				//k--;
-				//i--;
+				if(baddies.length == 0)
+					break;
+				if(k>0)
+					k--;
+				if(i>0)
+					i--;
 			}
 		}
 	}
