@@ -4,6 +4,9 @@ const ctx = cvs.getContext("2d");
 const boardHeight = 800;
 const boardWidth = 800;
 
+var background = new Image();
+background.src = "img/Dungeon_cropped800.png";
+
 ctx.fillStyle = "white";
 ctx.fillRect(0,0,boardWidth,boardHeight);
 
@@ -52,7 +55,8 @@ function gameLoop(timestamp)
 // 	drawGurg(g.x,g.y,g.width,g.height,"white");
 	ctx.clearRect(0,0,boardWidth,boardHeight);
 	ctx.fillStyle = "white";
-	ctx.fillRect(0,0,boardWidth,boardHeight);
+//	ctx.fillRect(0,0,boardWidth,boardHeight);
+	ctx.drawImage(background, 0, 0);
 	g.update(delta);
 
 

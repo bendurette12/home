@@ -1,7 +1,7 @@
 
 function Rascal(x,y,path)
 {
-	this.color = "orange";
+	this.color = "green";
 
 	this.path = path;
 	this.pathState = 0;
