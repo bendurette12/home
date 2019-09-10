@@ -821,21 +821,21 @@ function checkCurrentScore()
 		console.log('new score is: ' + newScore['score']);
 		//find the correct spot on the scoreboard for the new score
 		var spot = numScores;
-		while(score > scores['highScores'][spot-1].score)
+		while(score > scores['highScores'][spot].score)
 		{
 			console.log('score at spot ' + spot + ' is ' + scores['highScores'][spot]['score']);
 			spot--;
 		}
 
 		//add name, score, date to array
-		scores['highScores'].splice(spot,0,newScore);
+		scores['highScores'].splice(spot+1,0,newScore);
 		if(scores['highScores'].length > 10)
 		{
 			scores['highScores'].pop();
 		}
 
 		//populates the scores in the browser
-		
+		populateScores(scores);
 
 		//save array back to text file
 		//var myJSON = JSON.stringify(scores, null, 2);
@@ -846,7 +846,7 @@ function checkCurrentScore()
 		//save score
 		console.log('saving score');
 		saveScore(name, score, date, spot);
-		populateScores(scores);
+
 		//console.log(myJSON);
 		//var fs = require('fs');
 		/*
@@ -872,7 +872,7 @@ function saveScore(name, score, date, spot) {
 
 	console.log('saving scores');
 
-	var url = 'http://localhost:2323/save/' + name + '/'+ score + '/'+ date + '/'+ spot + '/';
+	var url = 'http://localhost:3000/save/' + name + '/'+ score + '/'+ date + '/'+ spot + '/';
 	loadJSON(url, submitted);
 	function submitted(result) {
 		console.log('beep');

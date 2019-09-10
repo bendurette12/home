@@ -1,0 +1,9 @@
+{
+	"highScores": [
+		{ "name":"Joel", "score":"18250", "date":"7/21/2019" },
+		{ "name":"Bob", "score":800, "date":"7/22/2019" },
+		{ "name":"not Ben, lol", "score":"100", "date":"not likely" },
+		{ "name":"test", "score":"10", "date":"boop" },
+		{ "name":"Gurg", "score":"0", "date":"1889" }
+	]
+}
