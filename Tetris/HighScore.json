@@ -1,0 +1,54 @@
+{
+  "highScores": [
+    {
+      "name": "Joel",
+      "score": "18250",
+      "date": "7/21/2019"
+    },
+    {
+      "name": "Joel",
+      "score": "6460",
+      "date": "9/10/2019"
+    },
+    {
+      "name": "Joel",
+      "score": "6460",
+      "date": "9/10/2019"
+    },
+    {
+      "name": "Bob",
+      "score": 800,
+      "date": "7/22/2019"
+    },
+    {
+      "name": "jOEL",
+      "score": "460",
+      "date": "9/10/2019"
+    },
+    {
+      "name": "not Ben, lol",
+      "score": "100",
+      "date": "not likely"
+    },
+    {
+      "name": "ASD",
+      "score": "50",
+      "date": "9/10/2019"
+    },
+    {
+      "name": "joEl",
+      "score": "50",
+      "date": "9/10/2019"
+    },
+    {
+      "name": "JOEL",
+      "score": "40",
+      "date": "9/10/2019"
+    },
+    {
+      "name": "asdfasdf",
+      "score": "20",
+      "date": "9/11/2019"
+    }
+  ]
+}
