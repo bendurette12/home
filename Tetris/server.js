@@ -40,6 +40,7 @@ function listening(){
 
 app.use(express.static('website'));
 
+
 //app.use(express.static('website'));
 //can use this to have localhost:<port> connect to an html file
 //https://www.youtube.com/watch?v=6oiabY1xpBo&feature=youtu.be&list=PLRqwX-V7Uu6Yyn-fBtGHfN0_xCtBwUkBp
