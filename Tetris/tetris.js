@@ -1,3 +1,7 @@
+
+function setup() {
+}
+
 const cvs = document.getElementById("tetris");
 const ctx = cvs.getContext("2d");
 const scoreElement = document.getElementById("score");
@@ -29,6 +33,9 @@ const HoldYOffset = 14;
 const HoldPieceX = 1;
 const HoldPieceY = 1;
 let HoldUsed = 0;
+
+
+	
 
 //draw a square
 function drawSquare(x,y,color)
@@ -373,6 +380,7 @@ let totalRowsCleared = 0;
 //lock piece
 Piece.prototype.lock = function()
 {
+	console.log('locking piece');
 	for(r = 0; r < this.activeTetromino.length; r++)
 	{
 		for(c = 0; c < this.activeTetromino.length; c++)
@@ -385,9 +393,14 @@ Piece.prototype.lock = function()
 			//pieces to lock on top = game over
 			if(this.y + r < 0)
 			{
-				alert("Game Over");
+				
 				//stop request animation fram
 				gameOver = true;
+
+				//call function to check high schore
+				console.log('checking current score');
+				checkCurrentScore();
+
 				break;
 			}
 			//we lock the piece
@@ -657,3 +670,217 @@ function nextPiece()
 	q3.draw();
 }
 
+
+
+
+
+////////////scoreboard stuff
+
+
+//get reference to table body used in webpage
+const scoreBody = document.querySelector("#highScores > tbody");
+
+//console.log(scoreBody);
+
+//pulls scores from json file on server
+//original version
+var scores = 0;
+const xmlhttp = new XMLHttpRequest();
+function loadScores ()
+{
+	console.log('loadScores');
+	//const xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+  		if (this.readyState == 4 && this.status == 200) {
+    		scores = JSON.parse(this.responseText);
+    		console.log('scores: ' + scores['highScores'][1]['name']);
+    		populateScores(scores);
+
+			//testing scores variable
+			//console.log('first name: ' + scores[1].name);
+  		}
+	};
+	xmlhttp.open("GET", "HighScore.json", true);
+	xmlhttp.send();
+}
+
+
+
+// // function setup() {
+// // } 	
+// //v2, using url calls
+// function loadScores(scores)
+// {
+// 	console.log('loading scores via url');
+
+// 	var url = '/get';
+// 	//loadedScores = 
+// 	loadJSON(url, submitted);
+// 	function submitted(result) {
+// 		console.log('beep');
+// 		console.log(result);
+// 	//	console.log(loadedScores);
+// 		console.log('boop');
+// 	}
+// }
+
+
+//populates scores to webpage
+function populateScores(scores)
+{
+	//console.log(json);
+
+	//emptys table
+	while(scoreBody.firstChild)
+	{
+		scoreBody.removeChild(scoreBody.firstChild);
+	}
+
+	//populate table
+	//used when reading old version of json
+	//scores.forEach((row) => {
+	
+	console.log('scores length = ' + scores.length);
+	console.log('name 1: ' + scores['highScores'][1][name]);
+	console.log('score 1: ' + scores['highScores'][1][score]);
+	var i = 0;
+	while(scores['highScores'][i] != undefined) {
+		console.log('trying to populate score #' + i);
+		console.log(scores['highScores'][i]['name'] + ' - ' + scores['highScores'][i]['score']);
+		const tr = document.createElement("tr");
+
+		var tdName = document.createElement("td");
+		tdName.textContent = scores['highScores'][i]['score'];
+		tr.appendChild(tdName);
+
+		var tdScore = document.createElement("td");
+		tdScore.textContent = scores['highScores'][i]['name'];
+		tr.appendChild(tdScore);
+
+		var tdDate = document.createElement("td");
+		tdDate.textContent = scores['highScores'][i]['date'];
+		tr.appendChild(tdDate);
+
+		scoreBody.appendChild(tr);
+
+		i++;
+
+	}
+	// for(i = 0; i < scores.length; i++) {
+	// 	console.log('trying to populate scores');
+	// 	console.log(scores[i][name] + scores[i].score);
+	// 	const tr = document.createElement("tr");
+
+	// 	var tdName = document.createElement("td");
+	// 	tdName.textContent = scores[i][score];
+	// 	tr.appendChild(tdName);
+
+	// 	var tdScore = document.createElement("td");
+	// 	tdScore.textContent = scores[i][name];
+	// 	tr.appendChild(tdScore);
+
+	// 	var tdDate = document.createElement("td");
+	// 	tdDate.textContent = scores[i][date];
+	// 	tr.appendChild(tdDate);
+
+
+	// 	scoreBody.appendChild(tr);
+	// }
+	console.log('end of score logging');
+	//);
+}
+
+//document.addEventListener("DOMContentLoaded", () => { loadScores(); });
+document.addEventListener("DOMContentLoaded", loadScores);
+console.log('loading initial scores');
+
+
+
+//check if users score is high score
+function checkCurrentScore()
+{
+	console.log(scores);
+	console.log(score);
+	console.log(scores[scores.length]);
+	console.log("beep");
+	var numScores = scores['highScores'].length-1;
+	if(scores['highScores'][numScores].score < score)
+	{
+		console.log("You made it on the board!");
+
+		//ask for name
+		var name = prompt("You've made it on the scoreboard!! Please enter your name", "Joel is the default name, cause he's gonna be getting most of those top scores");
+
+		//get date
+		var d = new Date();
+		var day = d.getDate();
+		var month = d.getMonth()+1;
+		var year = d.getFullYear();
+		var date = month + "/" + day + "/" + year;
+		var newScore = {"name":name, "score":score, "date": date};
+		console.log('new score is: ' + newScore['score']);
+		//find the correct spot on the scoreboard for the new score
+		var spot = numScores;
+		while(score > scores['highScores'][spot-1].score)
+		{
+			console.log('score at spot ' + spot + ' is ' + scores['highScores'][spot]['score']);
+			spot--;
+		}
+
+		//add name, score, date to array
+		scores['highScores'].splice(spot,0,newScore);
+		if(scores['highScores'].length > 10)
+		{
+			scores['highScores'].pop();
+		}
+
+		//populates the scores in the browser
+		
+
+		//save array back to text file
+		//var myJSON = JSON.stringify(scores, null, 2);
+		//xmlhttp.open("POST","HighScore2.txt");
+		//xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+		//xmlhttp.send(myJSON);
+
+		//save score
+		console.log('saving score');
+		saveScore(name, score, date, spot);
+		populateScores(scores);
+		//console.log(myJSON);
+		//var fs = require('fs');
+		/*
+		fs.writeFileSync('HighScore.txt', myJSON, finished);
+		function finished(err)
+		{
+			console.log('oops');
+		}
+		*/
+		//console.log(myJSON);
+	}
+	else
+	{
+		alert("Game Over, no high score for you :(");
+	}
+	console.log(scores);
+}
+
+//save scores to file
+
+
+function saveScore(name, score, date, spot) {
+
+	console.log('saving scores');
+
+	var url = 'http://localhost:2323/save/' + name + '/'+ score + '/'+ date + '/'+ spot + '/';
+	loadJSON(url, submitted);
+	function submitted(result) {
+		console.log('beep');
+		console.log(result);
+		console.log('boop');
+	}
+	// loadJSON('save/' + scores, finished);
+	// function finished(data) {
+	// 	console.log(data);
+	// }
+}

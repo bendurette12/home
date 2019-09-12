@@ -32,14 +32,14 @@ app.use(function (req, res, next) {
     next();
 });
 
-
 var server = app.listen(2323, listening);
 
 function listening(){
     console.log('listening...');
 }
 
-//app.use(express.static('website'));
+app.use(express.static('website'));
+
 
 //app.use(express.static('website'));
 //can use this to have localhost:<port> connect to an html file
