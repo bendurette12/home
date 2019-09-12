@@ -406,6 +406,8 @@ Piece.prototype.lock = function()
 			//we lock the piece
 			board[this.y+r][this.x+c] = this.color;
 		}
+
+		if(gameOver) break;
 	}
 	
 	//remove full rows
