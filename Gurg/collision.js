@@ -17,7 +17,7 @@ function collisionP()
 	{
 		for(i=0; i < baddies.length; i++)
 		{
-			if(chopper.direction == 1 || chopper.direction == 2)
+			if(chopper.direction == up || chopper.direction == down)
 			{
 				if((chopper.x > (baddies[i].x - chopper.width)) && (chopper.x < (baddies[i].x + baddies[i].width))  &&  (chopper.y > (baddies[i].y - chopper.length)) && (chopper.y < (baddies[i].y + baddies[i].height)))
 				{
@@ -25,7 +25,7 @@ function collisionP()
 				}
 			}
 
-			else if(chopper.direction == 3 || chopper.direction == 4)
+			else if(chopper.direction == left || chopper.direction == right)
 			{
 				if((chopper.x > (baddies[i].x - chopper.length)) && (chopper.x < (baddies[i].x + baddies[i].width))  &&  (chopper.y > (baddies[i].y - chopper.width)) && (chopper.y < (baddies[i].y + baddies[i].height)))
 				{
