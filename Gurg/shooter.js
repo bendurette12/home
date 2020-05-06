@@ -3,7 +3,7 @@
 const shotSpeed = .4;
 function Shot(xSpeed, ySpeed)
 {
-	this.color = "black";
+	this.color = "white";
 	this.x = g.x + g.width/2;
 	this.y = g.y + g.height/2;
 	this.xSpeed = xSpeed;

@@ -5,7 +5,7 @@ const boardHeight = 800;
 const boardWidth = 800;
 
 var background = new Image();
-background.src = "img/Dungeon_cropped800.png";
+//background.src = "img/Dungeon_cropped800.png";
 
 ctx.drawImage(background, 0, 0);
 

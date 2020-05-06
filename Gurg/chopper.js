@@ -7,7 +7,7 @@ const right = 4;
 
 function Chopper()
 {
-	this.color = "black";
+	this.color = "white";
 	this.length = 40;
 	this.width = 5;
 	this.x = null;
