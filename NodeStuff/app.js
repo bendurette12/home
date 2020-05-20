@@ -81,7 +81,8 @@ console.log('res: ' + res);
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
   if (state === null || state !== storedState) {
-    res.redirect('/#' +
+//    res.redirect('/#' +
+    res.redirect('/Lyrics/SpotifyAPI/authorization_code/public/#' +  //not sure if this is necessary, but adding due to the change to the redirect in the /callback URI
       querystring.stringify({
         error: 'state_mismatch'
       }));
@@ -120,8 +121,9 @@ console.log('res: ' + res);
         });
 
         // we can also pass the token to the browser to make requests from there
+        //This is necessary, otherwise after authorizing you it sends you back to the "static" path, which is the home directory
         res.redirect('/Lyrics/SpotifyAPI/authorization_code/public/#' +
-//        res.redirect('/#' +
+//        res.redirect('/#' +  //don't know 
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -159,9 +161,8 @@ console.log('res: ' + res);
             //console.log(body);
           });          
       } else {
-        res.redirect('/#' +
-
-          /Lyrics/SpotifyAPI/authorization_code/public/#
+//        res.redirect('/#' +
+        res.redirect('/Lyrics/SpotifyAPI/authorization_code/public/#' + //not sure if this is necessary, but adding due to the change to the redirect in the /callback URI
           querystring.stringify({
             error: 'invalid_token'
           }));
