@@ -13,9 +13,15 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = '0125e3c5896e451a8be63da932a70d44'; // Your client id
-var client_secret = '2fe8265bd1044151b08967ea53acc4f6'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+//OLD
+//var client_id = '0125e3c5896e451a8be63da932a70d44'; // Your client id
+//var client_secret = '2fe8265bd1044151b08967ea53acc4f6'; // Your secret
+//var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+
+//NEW
+var client_id = '8dbf3f5775814b0ab7fa1ac8ca7811d1'; // Your client id
+var client_secret = '1828bc46e5cc46f7b534ed92c2a5f483'; // Your secret
+var redirect_uri = 'http://localhost:8888/callback'; //the path after :8888 literally doesn't matter from a file system standpoint, it refers to the URI that gets called below 
 
 /**
  * Generates a random string containing numbers and letters
@@ -36,13 +42,17 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-//HERE app.use(express.static(__dirname + '/public'))
-app.use(express.static('/Users/bendurette12/Sites'))
+//Ben: tell it to start at the directory above where the node.js file is running from
+//I run it from one sub folder deep from the home folder in a folder called NodeStuff, so I tell it to start one folder above 
+//This should work from either personal machine or Pi since it is a relative path 
+//Everything else in here uses the folder set in static as the root folder, so it is now all relative to the normal root folder in the file system
+app.use(express.static(__dirname + '/../'))
    .use(cors())
    .use(cookieParser());
-   console.log(__dirname);
+   console.log(__dirname + '/../Lyrics/SpotifyAPI/authorization_code/public');
 
 app.get('/login', function(req, res) {
+  console.log('made it to login request');
 
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -64,7 +74,8 @@ app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
-
+console.log('req: ' + req); 
+console.log('res: ' + res); 
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -109,8 +120,8 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
-        //HERE res.redirect('/Users/bendurette12/Sites/Lyrics/SpotifyAPI/authorization_code/#' +
+        res.redirect('/Lyrics/SpotifyAPI/authorization_code/public/#' +
+//        res.redirect('/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -149,6 +160,8 @@ app.get('/callback', function(req, res) {
           });          
       } else {
         res.redirect('/#' +
+
+          /Lyrics/SpotifyAPI/authorization_code/public/#
           querystring.stringify({
             error: 'invalid_token'
           }));
