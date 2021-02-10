@@ -1,0 +1,22 @@
+table, th,td {
+	border:1px solid white;	
+}
+
+table {
+	background-color: rgba(0,0,0,0.7);
+	border-collapse: collapse;
+	empty-cells: show;
+	font-family: Courier;
+}
+
+th,td {
+	padding: 7px 7px 7px 7px;
+}
+
+td:hover {
+	background-color: rgba(50,50,50,0.7);
+}
+
+th {
+	font-size: 120%;
+}
