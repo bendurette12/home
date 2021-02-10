@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Link to Google font used -->
+		<link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-144042582-1"></script>
+		<script>
+			  window.dataLayer = window.dataLayer || [];
+			  function gtag(){dataLayer.push(arguments);}
+			  gtag('js', new Date());
+
+			  gtag('config', 'UA-144042582-1');
+		</script>
+
+
+
+		<title>Wormhole</title>
+		<style>
+			body 
+			{ 
+				color: lime;
+			}
+			h1
+			{
+				font-family: 'Aldrich';
+				font-size: 70px;
+				text-align: center;
+				background: -webkit-linear-gradient(135deg, #60c, #6f6);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+			html { 
+				background: url('../img/morganWormhome.jpg') no-repeat center center fixed; 
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			.wrapper {
+				text-align: center;
+				color: #fff;
+				font-size: 92px;
+				font-family: "Aldrich";
+				text-transform: uppercase;
+				font-weight: 700;
+				font-family: "Josefin Sans", sans-serif;
+				background: linear-gradient(to left,#4a0ed6, #25abe8, #57d75b, #1891e2, #4a0ed6);
+				background-size: auto auto;
+				background-clip: border-box;
+				background-size: 200% auto;
+				color: #fff;
+				background-clip: text;
+				text-fill-color: transparent;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				animation: textclip 3.5s linear infinite reverse;
+				display: inline-block;
+			}
+			@keyframes textclip 
+			{
+				to 
+				{
+					background-position: 200% center;
+				}
+			}
+
+		</style>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<h1 class="wrapper">Chummy Wormhole!</h1>
+		<h1 style="color:blue">Wormhole Day 2021 Countdown:</h1>
+		<h1 id="countdown" style="color:darkslategray"></h1>
+
+		<script>
+			// Set the date we're counting down to
+			var countDownDate = new Date("Feb 20, 2021 00:00:00").getTime();
+
+			// Update the count down every 1 second
+			var x = setInterval(function() {
+
+			// Get today's date and time
+			var now = new Date().getTime();
+				
+			// Find the distance between now and the count down date
+			var distance = countDownDate - now;
+				
+			// Time calculations for days, hours, minutes and seconds
+			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				
+			// Output the result in an element with id="demo"
+			document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+			+ minutes + "m " + seconds + "s ";
+				
+			// If the count down is over, write some text 
+			if (distance < 0) {
+				clearInterval(x);
+				document.getElementById("countdown").innerHTML = "EXPIRED";
+			}
+			}, 1000);
+		</script>
+
+		<!--
+		<a href="./Docket/">Docket</a><br>
+		<a href="./Game/">Game</a><br>
+		-->
+
+	</body>
+</html>
