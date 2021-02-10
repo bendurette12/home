@@ -37,12 +37,39 @@
 				-o-background-size: cover;
 				background-size: cover;
 			}
+			.wrapper {
+				text-align: center;
+				color: #fff;
+				font-size: 92px;
+				font-family: "Aldrich";
+				text-transform: uppercase;
+				font-weight: 700;
+				font-family: "Josefin Sans", sans-serif;
+				background: linear-gradient(to left,#4a0ed6, #25abe8, #57d75b, #1891e2, #4a0ed6);
+				background-size: auto auto;
+				background-clip: border-box;
+				background-size: 200% auto;
+				color: #fff;
+				background-clip: text;
+				text-fill-color: transparent;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				animation: textclip 3.5s linear infinite reverse;
+				display: inline-block;
+			}
+			@keyframes textclip 
+			{
+				to 
+				{
+					background-position: 200% center;
+				}
+			}
 
 		</style>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<h1>Chummy Wormhole!</h1>
+		<h1 class="wrapper">Chummy Wormhole!</h1>
 		<h1 style="color:blue">Wormhole Day 2021 Countdown:</h1>
 		<h1 id="countdown" style="color:darkslategray"></h1>
 
