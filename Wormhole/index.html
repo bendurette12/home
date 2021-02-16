@@ -26,6 +26,7 @@
 		<div id="countdownDiv">
 			<h1 id="countdown"></h1>
 		</div>
+		<a href="./playlist.html">MUSIC TO KEEP YOU BUSY</a>
 
 		<script>
 			// Set the date we're counting down to
@@ -51,9 +52,10 @@
 			+ minutes + "m " + seconds + "s ";
 				
 			// If the count down is over, write some text 
-			if (distance < 0) {
+			if (distance < 0) 
+			{
 				clearInterval(x);
-				document.getElementById("countdown").innerHTML = "EXPIRED";
+				document.getElementById("countdown").innerHTML = "WE'VE MADE IT BABY";
 			}
 			}, 1000);
 		</script>
