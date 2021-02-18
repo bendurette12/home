@@ -1,8 +1,11 @@
-body 
+body, html 
 { 
     color: lime;
     text-align: center;
     display: inline-block;
+    font-family: 'Aldrich';
+    height: 100%;
+    width: 100%;
 }
 
 h1, a
@@ -14,13 +17,32 @@ h1, a
     -webkit-text-fill-color: transparent;
 }
 
-h1, #countdownDiv
+h2
+{
+    font-family: 'Aldrich';
+    font-size: 20px;
+    margin-bottom: 0%;
+    background: -webkit-linear-gradient(135deg, rgb(70, 4, 192), rgb(1, 99, 58));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h1
+{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    align-content: flex-end;
+    margin-bottom: 10%;
+}
+
+#countdownDiv
 {
     display: flex;
     align-items: center;
     justify-content: center;
     align-content: flex-end;
-    margin-bottom: 10%;
+    margin-top: 0%;
 }
 
 html 
@@ -63,6 +85,11 @@ html
 #playlist
 {
     width: 100%;
-    height: 100%;
-    margin: auto auto;
+    height: 200px;
+}
+
+audio
+{
+    width:100%;
+    margin-bottom: 5%;
 }
