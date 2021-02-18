@@ -93,3 +93,29 @@ audio
     width:100%;
     margin-bottom: 5%;
 }
+
+.button
+{
+font: bold 50px Aldrich;
+text-decoration: none;
+background-color: #333333;
+color: #333333;
+padding: 2px 6px 2px 6px;
+border-top: 4px solid #CCCCCC;
+border-right: 4px solid #CCCCCC;
+border-bottom: 4px solid #CCCCCC;
+border-left: 4px solid #CCCCCC;
+}
+
+.homepagebutton
+{
+font: bold 20px Aldrich;
+text-decoration: none;
+background-color: #333333;
+color: #333333;
+padding: 2px 6px 2px 6px;
+border-top: 4px solid #CCCCCC;
+border-right: 4px solid #CCCCCC;
+border-bottom: 4px solid #CCCCCC;
+border-left: 4px solid #CCCCCC;
+}
