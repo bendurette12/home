@@ -13,12 +13,17 @@
 
 
 
-		<title>Wormhole</title>
+		<title>Game</title>
 		<style>
 			body 
 			{ 
 				background-image:url('../../img/PigletInSpace.png');
 				color: lime;
+			}
+			.planet0
+			{
+				margin-left: auto;
+				margin-right: auto;
 			}
 			.planet1
 			{
@@ -30,27 +35,44 @@
 				margin-left: auto;
 				margin-right: auto;
 			}
-			.planet3
-			{
-				margin-left: auto;
-				margin-right: auto;
-			}
 
 		</style>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
+		<div id="logoDiv">
+			<a href="../">
+				<img class="logo" src="../../img/WormholeDayPatch2021.png" style="max-width:25%">
+			</a>
+		</div>
 		<h1>Game - Can you find Piglet among the planets?</h1>
 	</body>
 
-	<a href="planet1.html">
-		<img src="../../img/saturn.jpg" class="planet1" alt="Planet 1 site" style="width:200px;height:100px;">
+	<a id="planetA">
+		<img src="../../img/saturn.jpg" class="planet0" alt="Planet 0 site" style="width:200px;height:100px;">
 	</a>
-	<a href="planet2.html">
-		<img src="../../img/galaxy.jpg" class="planet2" alt="Planet 2 site" style="width:200px;height:100px;">
+	<a id="planetB">
+		<img src="../../img/galaxy.jpg" class="planet1" alt="Planet 1 site" style="width:200px;height:100px;">
 	</a>
-	<a href="planet3.html">
-		<img src="../../img/galaxy.jpg" class ="planet3" alt="Planet 3 site" style="width:200px;height:100px;">
+	<a id="planetC">
+		<img src="../../img/galaxy.jpg" class ="planet2" alt="Planet 2 site" style="width:200px;height:100px;">
 	</a>
+
+	<button onclick="NewGame()">New Game</button><br>
+
+	<script>
+		function NewGame() {
+			var a = Math.floor(Math.random() * 3);
+			var b = (a+1)%3;
+			var c = (a+2)%3;
+			console.log(a);
+			console.log(b);
+			console.log(c);
+
+			document.getElementById("planetA").setAttribute("href","planet"+a+".html");
+			document.getElementById("planetB").setAttribute("href","planet"+b+".html");
+			document.getElementById("planetC").setAttribute("href","planet"+c+".html");
+		}
+	</script>
 
 </html>

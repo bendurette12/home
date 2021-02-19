@@ -1,5 +1,5 @@
 table, th,td {
-	border:1px solid white;	
+	border:2px solid white;	
 }
 
 table {
@@ -19,4 +19,12 @@ td:hover {
 
 th {
 	font-size: 120%;
+}
+
+tr.blue {
+	background-color: rgba(100,0,255,0.4);
+}
+
+tr.red {
+	background-color: rgba(255,0,125,0.4);
 }
