@@ -111,6 +111,8 @@ border-top: 4px solid #CCCCCC;
 border-right: 4px solid #CCCCCC;
 border-bottom: 4px solid #CCCCCC;
 border-left: 4px solid #CCCCCC;
+display: inline-block;
+margin-top: 5px;
 }
 
 .homepagebutton
